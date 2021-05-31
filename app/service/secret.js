@@ -21,7 +21,7 @@ class SecretService extends Service {
     }
   }
 
-  sha512(data) {
+  _sha512(data) {
     var hash = crypto.createHash('sha512');
     hash.update(data);
     var res = hash.digest('hex');
@@ -29,8 +29,8 @@ class SecretService extends Service {
   }
 
   saltHash(data, salt1, salt2) {
-    var saltHash1 = bcrypt.hashSync(this.sha512(data), salt1);
-    var saltHash2 = this.sha512(saltHash1 + salt2);
+    var saltHash1 = bcrypt.hashSync(this._sha512(data), salt1);
+    var saltHash2 = this._sha512(saltHash1 + salt2);
     return saltHash2;
   }
 
