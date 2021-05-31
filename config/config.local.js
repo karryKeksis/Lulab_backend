@@ -25,7 +25,7 @@ module.exports = appInfo => {
 
   // mongoose配置
   config.mongoose = {
-    url: process.env.MONGODB_URL || 'mongodb://community-test:PjLxsX7s0y1S0Al@localhost:27018/community-test'
+    url: process.env.MONGODB_URL || 'mongodb://dev:P[L3s]Xus_z2tSaA8@localhost:27018/community-test'
   };
 
   return {
