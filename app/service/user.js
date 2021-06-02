@@ -6,7 +6,7 @@ const Service = require('egg').Service;
 class UserService extends Service {
   async sendEmail(key, email) {
     var stmpTransport = nodemailer.createTransport({
-      host: "smtp.163.com", //TODO: 主机 qq邮箱，需要修改
+      host: "smtp.163.com", //TODO: 主机 163邮箱，需要修改
       secureConnection: true, //使用SSL
       port: 465,
       auth: {
@@ -15,6 +15,7 @@ class UserService extends Service {
       }
     });
   
+
     var mailOptions = {
       from: "notmaimai@163.com",
       to: email, //收件人
@@ -76,14 +77,12 @@ class UserService extends Service {
     };
     // TODO: 这里不能await/async吗？如果不能，你需要把这个方法转成支持await/async的模式。
     // await, 然后把结果返回，而不是console.log
-    stmpTransport.sendMail(mailOptions, function (error, response) { 
-      if (error) {
-        console.log('error', error);
-      } else {
-        console.log("Message sent:" + response.message);
-      }
-      stmpTransport.close();
-    });
+    try {
+      await stmpTransport.sendMail(mailOptions)
+      return true
+    } catch (err) {
+      return false
+    };
   }
 
   async userByEmail(email) {
