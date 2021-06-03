@@ -14,7 +14,6 @@ const {
 const {
   NOTIFICATION_STATUS
 } = require("../../constant/notification");
-const moment = require('moment');
 const MODEL_NAME = 'User';
 class UserConnector extends BasicConnector {
 
@@ -177,6 +176,7 @@ class UserConnector extends BasicConnector {
     var tempEmail = userInput.email; // TODO: 前端传递的email应当也为salt加密过的
     var email = ctx.service.secret.reversibleEncrypt(tempEmail, true);
     // TODO: 这里是不是可以用findByIdAndUpdate, upsert true，直接就插入了？
+    // 直接插入有可能把已注册成功用户状态改为 ONBOARDING_STATUS.DEFAULT,就出问题了
     var user = await ctx.service.user.userByEmail(email);
     if (user) {
       if (user.onboardingStatus === ONBOARDING_STATUS.ONBOARDED) {
@@ -190,13 +190,15 @@ class UserConnector extends BasicConnector {
     }
     //  var token = sign(user._id.toString(),'wsd',{expiresIn: 24 * 60 * 60  /* 1 days */});
     // TODO: 以后这行逻辑可以放进service里
-    const activeKey = Array.from(Array(6), () => parseInt((Math.random() * 10))).join('');
+    var activeKey = Array.from(Array(6), () => parseInt((Math.random() * 10))).join('');
     // TODO: 这里需要await确认发送成功，如果没有法功成功也要返回状态给前端
-    ctx.service.user.sendEmail(activeKey, tempEmail);
+    var hasSend = await ctx.service.user.sendEmail(activeKey, tempEmail);
+    if (!hasSend) return null;
+    activeKey = ctx.service.secret.reversibleEncrypt(activeKey, true);
     const result = await ctx.model.User.findByIdAndUpdate(
       user._id, {
         emailVerificationCode: activeKey,
-        emailVerificationCodeExpiredAt: moment().add(15, 'minutes').toDate() // TODO: 这里不用存可读的时间戳，用Date.now() + 600就行，表示600秒之后
+        emailVerificationCodeExpiredAt: Date.now() + 600000 // TODO: 这里不用存可读的时间戳，用Date.now() + 600就行，表示600秒之后
       }, {
         new: true
       }
@@ -214,11 +216,12 @@ class UserConnector extends BasicConnector {
       emailVerificationCode
     } = userInput;
     email = ctx.service.secret.reversibleEncrypt(email, true);
+    emailVerificationCode = ctx.service.secret.reversibleEncrypt(emailVerificationCode, true);
     var user = await ctx.service.user.userByEmail(email);
     if (!user) return null; //这里返回前端的消息还是不太一样的，比如用户不存在、已注册等等，null可能不能够表示清楚
     if (user.onboardingStatus === ONBOARDING_STATUS.ONBOARDED) return null;
     if (emailVerificationCode !== user.emailVerificationCode) return null;
-    if (moment().toDate() > user.emailVerificationCodeExpiredAt) return null; // TODO: 根据上面的修改所存的时间戳，这里直接跟data.now()比大小就行
+    if (Date.now() > user.emailVerificationCodeExpiredAt) return null; // TODO: 根据上面的修改所存的时间戳，这里直接跟data.now()比大小就行
     const result = await ctx.model.User.findByIdAndUpdate(
       user._id, {
         onboardingStatus: ONBOARDING_STATUS.EMAIL_VERIFIED,
@@ -248,6 +251,7 @@ class UserConnector extends BasicConnector {
 
     //TODO: 这个salt需要存进数据库吗？salt1和salt2每次生成的结果如果都一样那就没必要存进数据库，还是说它这个随时间或随机变化吗？
     // 如果这样，是不是generateSalt应该直接合并进saltHash?
+    // 每次都是随机变化的，所有要存
     var [salt1, salt2] = ctx.service.secret.generateSalt(11, 23);
     password = ctx.service.secret.saltHash(password, salt1, salt2);
     const result = await ctx.model.User.findByIdAndUpdate(
