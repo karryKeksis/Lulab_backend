@@ -1,12 +1,14 @@
 'use strict'; 
 
+/*
 module.exports = app => {
-  const { ONBOARDING_STATUS } = require('../constant/user');
-  const { USER_TYPE } = require('../constant/types');
+ /!* const { ONBOARDING_STATUS } = require('../constant/user');
+  const { USER_TYPE } = require('../constant/types');*!/
+
   const mongoose = app.mongoose;
   const Schema = mongoose.Schema;
 
-  const subDepartmentSchema = mongoose.Schema({
+  /!*const subDepartmentSchema = mongoose.Schema({
     name: { type: String },
   }, { _id : false });
 
@@ -22,16 +24,16 @@ module.exports = app => {
     unionId: String,
     sessionKey: String, // wechat only
     accessToken: String, // internal access
-  },{ _id : false });
+  },{ _id : false });*!/
 
   const UserSchema = new Schema({
 
-    /*
+    /!*!/!*
       ----用户基本信息----
-    */
+    *!/!*!/
     // 用户手机号码
     phone: { type: String },
-    // 用户性别
+  /!*  // 用户性别
     gender: { type: Number },
     // 用户邮箱
     email: { type: String },
@@ -79,9 +81,9 @@ module.exports = app => {
     onboardingStatus: { type: String, enum: Object.values(ONBOARDING_STATUS), default: ONBOARDING_STATUS.DEFAULT },
     circles: { type: Array, ref: 'Circle' },
 
-    /*
+    /!*
       ----用户风控信息----
-    */
+    *!/
     // 账户是否被屏蔽
     isBlocked: { type: Boolean, default: false },
     // 账户是否被激活
@@ -94,11 +96,29 @@ module.exports = app => {
     updatedAt: { type: Date, default: Date.now },
     loginedAt: { type: Date, default: Date.now },
     // 邮箱验证码过期时间
-    emailVerificationCodeExpiredAt: { type: Date },
+    emailVerificationCodeExpiredAt: { type: Date },*!/
   });
 
   UserSchema.index({ "credential.openId": 1, "credential.openId": 1 });
   UserSchema.index({ accessToken: 1 });
 
+
+  return mongoose.model('User', UserSchema);
+
+
+};
+*/
+
+module.exports = app => {
+  const mongoose = app.mongoose;
+  const Schema = mongoose.Schema;
+
+  const UserSchema = new Schema({
+    name: {
+      type: String,
+      unique: true,
+      required: true,
+    },
+  });
   return mongoose.model('User', UserSchema);
 };

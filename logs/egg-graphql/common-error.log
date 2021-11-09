@@ -1,40 +1,30 @@
-2021-10-25 06:14:06,040 ERROR 26066 nodejs.ClusterClientNoResponseError: client no response in 1209825ms exceeding maxIdleTime 60000ms, maybe the connection is close on other side.
-    at Timeout._onTimeout (/Users/apple/Desktop/egg-graphql/node_modules/cluster-client/lib/leader.js:77:23)
-    at listOnTimeout (internal/timers.js:557:17)
-    at processTimers (internal/timers.js:500:7)
+2021-11-08 01:00:51,580 ERROR 19036 nodejs.ClusterClientNoResponseError: client no response in 965201ms exceeding maxIdleTime 60000ms, maybe the connection is close on other side.
+    at Timeout.Leader._heartbeatTimer.setInterval [as _onTimeout] (/Users/dazeng/IdeaProjects/lulab_backend/node_modules/cluster-client/lib/leader.js:77:23)
+    at ontimeout (timers.js:436:11)
+    at tryOnTimeout (timers.js:300:5)
+    at listOnTimeout (timers.js:263:5)
+    at Timer.processTimers (timers.js:223:10)
 name: "ClusterClientNoResponseError"
-pid: 26066
-hostname: bogon
+pid: 19036
+hostname: localhost
 
-2021-10-25 07:54:03,017 ERROR 26066 nodejs.ClusterClientNoResponseError: client no response in 5976248ms exceeding maxIdleTime 60000ms, maybe the connection is close on other side.
-    at Timeout._onTimeout (/Users/apple/Desktop/egg-graphql/node_modules/cluster-client/lib/leader.js:77:23)
-    at listOnTimeout (internal/timers.js:557:17)
-    at processTimers (internal/timers.js:500:7)
+2021-11-08 01:18:39,974 ERROR 19036 nodejs.ClusterClientNoResponseError: client no response in 1048359ms exceeding maxIdleTime 60000ms, maybe the connection is close on other side.
+    at Timeout.Leader._heartbeatTimer.setInterval [as _onTimeout] (/Users/dazeng/IdeaProjects/lulab_backend/node_modules/cluster-client/lib/leader.js:77:23)
+    at ontimeout (timers.js:436:11)
+    at tryOnTimeout (timers.js:300:5)
+    at listOnTimeout (timers.js:263:5)
+    at Timer.processTimers (timers.js:223:10)
 name: "ClusterClientNoResponseError"
-pid: 26066
-hostname: bogon
+pid: 19036
+hostname: localhost
 
-2021-10-25 11:15:04,058 ERROR 26066 nodejs.ClusterClientNoResponseError: client no response in 12060915ms exceeding maxIdleTime 60000ms, maybe the connection is close on other side.
-    at Timeout._onTimeout (/Users/apple/Desktop/egg-graphql/node_modules/cluster-client/lib/leader.js:77:23)
-    at listOnTimeout (internal/timers.js:557:17)
-    at processTimers (internal/timers.js:500:7)
+2021-11-08 01:29:23,506 ERROR 19036 nodejs.ClusterClientNoResponseError: client no response in 623493ms exceeding maxIdleTime 60000ms, maybe the connection is close on other side.
+    at Timeout.Leader._heartbeatTimer.setInterval [as _onTimeout] (/Users/dazeng/IdeaProjects/lulab_backend/node_modules/cluster-client/lib/leader.js:77:23)
+    at ontimeout (timers.js:436:11)
+    at tryOnTimeout (timers.js:300:5)
+    at listOnTimeout (timers.js:263:5)
+    at Timer.processTimers (timers.js:223:10)
 name: "ClusterClientNoResponseError"
-pid: 26066
-hostname: bogon
-
-2021-10-25 15:19:48,020 ERROR 26066 nodejs.ClusterClientNoResponseError: client no response in 14683938ms exceeding maxIdleTime 60000ms, maybe the connection is close on other side.
-    at Timeout._onTimeout (/Users/apple/Desktop/egg-graphql/node_modules/cluster-client/lib/leader.js:77:23)
-    at listOnTimeout (internal/timers.js:557:17)
-    at processTimers (internal/timers.js:500:7)
-name: "ClusterClientNoResponseError"
-pid: 26066
-hostname: bogon
-
-2021-10-25 15:36:51,172 ERROR 26066 nodejs.ClusterClientNoResponseError: client no response in 1022934ms exceeding maxIdleTime 60000ms, maybe the connection is close on other side.
-    at Timeout._onTimeout (/Users/apple/Desktop/egg-graphql/node_modules/cluster-client/lib/leader.js:77:23)
-    at listOnTimeout (internal/timers.js:557:17)
-    at processTimers (internal/timers.js:500:7)
-name: "ClusterClientNoResponseError"
-pid: 26066
-hostname: bogon
+pid: 19036
+hostname: localhost
 

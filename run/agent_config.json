@@ -78,7 +78,7 @@
     "onerror": {
       "errorPageUrl": "",
       "appErrorFilter": null,
-      "templatePath": "/Users/apple/Desktop/egg-graphql/node_modules/egg-onerror/lib/onerror_page.mustache"
+      "templatePath": "/Users/dazeng/IdeaProjects/lulab_backend/node_modules/egg-onerror/lib/onerror_page.mustache"
     },
     "i18n": {
       "defaultLocale": "en_US",
@@ -91,8 +91,8 @@
     "watcher": {
       "type": "development",
       "eventSources": {
-        "default": "/Users/apple/Desktop/egg-graphql/node_modules/egg-watcher/lib/event-sources/default",
-        "development": "/Users/apple/Desktop/egg-graphql/node_modules/egg-watcher/lib/event-sources/development"
+        "default": "/Users/dazeng/IdeaProjects/lulab_backend/node_modules/egg-watcher/lib/event-sources/default",
+        "development": "/Users/dazeng/IdeaProjects/lulab_backend/node_modules/egg-watcher/lib/event-sources/development"
       }
     },
     "customLogger": {
@@ -116,7 +116,7 @@
       "fileExtensions": [],
       "whitelist": null,
       "allowArrayField": false,
-      "tmpdir": "/var/folders/y3/ctk34xxd2jx_ky2fbpk_z6180000gn/T/egg-multipart-tmp/egg-graphql",
+      "tmpdir": "/var/folders/xq/9bh5zty91rq7s4n1hk0_mwcm0000gn/T/egg-multipart-tmp/egg-graphql",
       "cleanSchedule": {
         "cron": "0 30 4 * * *",
         "disable": false
@@ -141,14 +141,14 @@
     },
     "static": {
       "prefix": "/public/",
-      "dir": "/Users/apple/Desktop/egg-graphql/app/public",
+      "dir": "/Users/dazeng/IdeaProjects/lulab_backend/app/public",
       "dynamic": true,
       "preload": false,
       "buffer": false,
       "maxFiles": 1000
     },
     "view": {
-      "root": "/Users/apple/Desktop/egg-graphql/app/view",
+      "root": "/Users/dazeng/IdeaProjects/lulab_backend/app/view",
       "cache": false,
       "defaultExtension": ".html",
       "defaultViewEngine": "",
@@ -161,6 +161,20 @@
     "cors": {
       "origin": "*",
       "allowMethods": "GET,HEAD,PUT,POST,DELETE,PATCH"
+    },
+    "mongoose": {
+      "url": "",
+      "options": {},
+      "plugins": [],
+      "loadModel": true,
+      "app": true,
+      "agent": false,
+      "client": {
+        "url": "mongodb://127.0.0.1:27017/test",
+        "options": {
+          "useNewUrlParser": true
+        }
+      }
     },
     "env": "local",
     "name": "egg-graphql",
@@ -183,8 +197,9 @@
         "egg-cors": "^2.1.2",
         "egg-graphql": "^2.3.0",
         "egg-jsonp": "^2.0.0",
+        "egg-mongoose": "^3.3.1",
         "egg-scripts": "^2.5.0",
-        "egg-sequelize": "^4.3.0",
+        "egg-sequelize": "^6.0.0",
         "egg-validate": "^2.0.2",
         "lodash": "^4.17.11",
         "mysql2": "^1.6.4"
@@ -195,7 +210,7 @@
         "egg-bin": "^4.3.5",
         "egg-ci": "^1.8.0",
         "egg-mock": "^3.14.0",
-        "eslint": "^4.11.0",
+        "eslint": "^8.2.0",
         "eslint-config-egg": "^6.0.0",
         "webstorm-disable-index": "^1.2.0"
       },
@@ -224,9 +239,9 @@
       "author": "",
       "license": "MIT"
     },
-    "baseDir": "/Users/apple/Desktop/egg-graphql",
-    "HOME": "/Users/apple",
-    "rundir": "/Users/apple/Desktop/egg-graphql/run",
+    "baseDir": "/Users/dazeng/IdeaProjects/lulab_backend",
+    "HOME": "/Users/dazeng",
+    "rundir": "/Users/dazeng/IdeaProjects/lulab_backend/run",
     "dump": {
       "ignore": "<Set>"
     },
@@ -258,7 +273,7 @@
       "onerror": "<Function onerror>"
     },
     "logger": {
-      "dir": "/Users/apple/Desktop/egg-graphql/logs/egg-graphql",
+      "dir": "/Users/dazeng/IdeaProjects/lulab_backend/logs/egg-graphql",
       "encoding": "utf8",
       "env": "local",
       "level": "INFO",
@@ -341,8 +356,8 @@
         "jsonp"
       ],
       "env": [],
-      "from": "/Users/apple/Desktop/egg-graphql/node_modules/egg/config/plugin.js",
-      "path": "/Users/apple/Desktop/egg-graphql/node_modules/egg-onerror",
+      "from": "/Users/dazeng/IdeaProjects/lulab_backend/node_modules/egg/config/plugin.js",
+      "path": "/Users/dazeng/IdeaProjects/lulab_backend/node_modules/egg-onerror",
       "version": "2.1.0"
     },
     "session": {
@@ -352,8 +367,8 @@
       "dependencies": [],
       "optionalDependencies": [],
       "env": [],
-      "from": "/Users/apple/Desktop/egg-graphql/node_modules/egg/config/plugin.js",
-      "path": "/Users/apple/Desktop/egg-graphql/node_modules/egg-session",
+      "from": "/Users/dazeng/IdeaProjects/lulab_backend/node_modules/egg/config/plugin.js",
+      "path": "/Users/dazeng/IdeaProjects/lulab_backend/node_modules/egg-session",
       "version": "3.3.0"
     },
     "i18n": {
@@ -363,8 +378,8 @@
       "dependencies": [],
       "optionalDependencies": [],
       "env": [],
-      "from": "/Users/apple/Desktop/egg-graphql/node_modules/egg/config/plugin.js",
-      "path": "/Users/apple/Desktop/egg-graphql/node_modules/egg-i18n",
+      "from": "/Users/dazeng/IdeaProjects/lulab_backend/node_modules/egg/config/plugin.js",
+      "path": "/Users/dazeng/IdeaProjects/lulab_backend/node_modules/egg-i18n",
       "version": "2.1.1"
     },
     "watcher": {
@@ -374,8 +389,8 @@
       "dependencies": [],
       "optionalDependencies": [],
       "env": [],
-      "from": "/Users/apple/Desktop/egg-graphql/node_modules/egg/config/plugin.js",
-      "path": "/Users/apple/Desktop/egg-graphql/node_modules/egg-watcher",
+      "from": "/Users/dazeng/IdeaProjects/lulab_backend/node_modules/egg/config/plugin.js",
+      "path": "/Users/dazeng/IdeaProjects/lulab_backend/node_modules/egg-watcher",
       "version": "3.1.1"
     },
     "multipart": {
@@ -387,8 +402,8 @@
         "schedule"
       ],
       "env": [],
-      "from": "/Users/apple/Desktop/egg-graphql/node_modules/egg/config/plugin.js",
-      "path": "/Users/apple/Desktop/egg-graphql/node_modules/egg-multipart",
+      "from": "/Users/dazeng/IdeaProjects/lulab_backend/node_modules/egg/config/plugin.js",
+      "path": "/Users/dazeng/IdeaProjects/lulab_backend/node_modules/egg-multipart",
       "version": "2.13.1"
     },
     "security": {
@@ -400,8 +415,8 @@
         "session"
       ],
       "env": [],
-      "from": "/Users/apple/Desktop/egg-graphql/node_modules/egg/config/plugin.js",
-      "path": "/Users/apple/Desktop/egg-graphql/node_modules/egg-security",
+      "from": "/Users/dazeng/IdeaProjects/lulab_backend/node_modules/egg/config/plugin.js",
+      "path": "/Users/dazeng/IdeaProjects/lulab_backend/node_modules/egg-security",
       "version": "2.9.0"
     },
     "development": {
@@ -415,8 +430,8 @@
       "env": [
         "local"
       ],
-      "from": "/Users/apple/Desktop/egg-graphql/node_modules/egg/config/plugin.js",
-      "path": "/Users/apple/Desktop/egg-graphql/node_modules/egg-development",
+      "from": "/Users/dazeng/IdeaProjects/lulab_backend/node_modules/egg/config/plugin.js",
+      "path": "/Users/dazeng/IdeaProjects/lulab_backend/node_modules/egg-development",
       "version": "2.7.0"
     },
     "logrotator": {
@@ -428,8 +443,8 @@
       ],
       "optionalDependencies": [],
       "env": [],
-      "from": "/Users/apple/Desktop/egg-graphql/node_modules/egg/config/plugin.js",
-      "path": "/Users/apple/Desktop/egg-graphql/node_modules/egg-logrotator",
+      "from": "/Users/dazeng/IdeaProjects/lulab_backend/node_modules/egg/config/plugin.js",
+      "path": "/Users/dazeng/IdeaProjects/lulab_backend/node_modules/egg-logrotator",
       "version": "3.1.0"
     },
     "schedule": {
@@ -439,8 +454,8 @@
       "dependencies": [],
       "optionalDependencies": [],
       "env": [],
-      "from": "/Users/apple/Desktop/egg-graphql/node_modules/egg/config/plugin.js",
-      "path": "/Users/apple/Desktop/egg-graphql/node_modules/egg-schedule",
+      "from": "/Users/dazeng/IdeaProjects/lulab_backend/node_modules/egg/config/plugin.js",
+      "path": "/Users/dazeng/IdeaProjects/lulab_backend/node_modules/egg-schedule",
       "version": "3.6.6"
     },
     "static": {
@@ -450,8 +465,8 @@
       "dependencies": [],
       "optionalDependencies": [],
       "env": [],
-      "from": "/Users/apple/Desktop/egg-graphql/node_modules/egg/config/plugin.js",
-      "path": "/Users/apple/Desktop/egg-graphql/node_modules/egg-static",
+      "from": "/Users/dazeng/IdeaProjects/lulab_backend/node_modules/egg/config/plugin.js",
+      "path": "/Users/dazeng/IdeaProjects/lulab_backend/node_modules/egg-static",
       "version": "2.2.0"
     },
     "jsonp": {
@@ -463,8 +478,8 @@
         "security"
       ],
       "env": [],
-      "from": "/Users/apple/Desktop/egg-graphql/node_modules/egg/config/plugin.js",
-      "path": "/Users/apple/Desktop/egg-graphql/node_modules/egg-jsonp",
+      "from": "/Users/dazeng/IdeaProjects/lulab_backend/node_modules/egg/config/plugin.js",
+      "path": "/Users/dazeng/IdeaProjects/lulab_backend/node_modules/egg-jsonp",
       "version": "2.0.0"
     },
     "view": {
@@ -474,8 +489,8 @@
       "dependencies": [],
       "optionalDependencies": [],
       "env": [],
-      "from": "/Users/apple/Desktop/egg-graphql/node_modules/egg/config/plugin.js",
-      "path": "/Users/apple/Desktop/egg-graphql/node_modules/egg-view",
+      "from": "/Users/dazeng/IdeaProjects/lulab_backend/node_modules/egg/config/plugin.js",
+      "path": "/Users/dazeng/IdeaProjects/lulab_backend/node_modules/egg-view",
       "version": "2.1.3"
     },
     "validate": {
@@ -485,8 +500,8 @@
       "dependencies": [],
       "optionalDependencies": [],
       "env": [],
-      "from": "/Users/apple/Desktop/egg-graphql/config/plugin.js",
-      "path": "/Users/apple/Desktop/egg-graphql/node_modules/egg-validate",
+      "from": "/Users/dazeng/IdeaProjects/lulab_backend/config/plugin.js",
+      "path": "/Users/dazeng/IdeaProjects/lulab_backend/node_modules/egg-validate",
       "version": "2.0.2"
     },
     "graphql": {
@@ -496,8 +511,8 @@
       "dependencies": [],
       "optionalDependencies": [],
       "env": [],
-      "from": "/Users/apple/Desktop/egg-graphql/config/plugin.js",
-      "path": "/Users/apple/Desktop/egg-graphql/node_modules/egg-graphql",
+      "from": "/Users/dazeng/IdeaProjects/lulab_backend/config/plugin.js",
+      "path": "/Users/dazeng/IdeaProjects/lulab_backend/node_modules/egg-graphql",
       "version": "2.8.0"
     },
     "cors": {
@@ -507,9 +522,20 @@
       "dependencies": [],
       "optionalDependencies": [],
       "env": [],
-      "from": "/Users/apple/Desktop/egg-graphql/config/plugin.js",
-      "path": "/Users/apple/Desktop/egg-graphql/node_modules/egg-cors",
+      "from": "/Users/dazeng/IdeaProjects/lulab_backend/config/plugin.js",
+      "path": "/Users/dazeng/IdeaProjects/lulab_backend/node_modules/egg-cors",
       "version": "2.2.3"
+    },
+    "mongoose": {
+      "enable": true,
+      "package": "egg-mongoose",
+      "name": "mongoose",
+      "dependencies": [],
+      "optionalDependencies": [],
+      "env": [],
+      "from": "/Users/dazeng/IdeaProjects/lulab_backend/config/plugin.js",
+      "path": "/Users/dazeng/IdeaProjects/lulab_backend/node_modules/egg-mongoose",
+      "version": "3.3.1"
     }
   }
 }

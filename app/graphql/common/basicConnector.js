@@ -12,14 +12,18 @@ class BasicConnector {
   }
 
   async fetch(ids) {
+    //this.ctx.model["User"] = [{"id":1},{"id":2}]
+    console.log("what is the now model" + this.model)
     return await this.ctx.model[this.model].find({
       _id: {
         $in: ids
       }
     });
+    //return await this.ctx.model.User.find({});
   }
 
   fetchByIds(ids) {
+    console.log("the ids"+ids)
     return this.loader.loadMany(ids);
   }
 
