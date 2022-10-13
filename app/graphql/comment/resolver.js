@@ -16,12 +16,26 @@ module.exports = {
       //var temp =  ResolverHelper.fetchById("", ctx, CONNECTOR_NAME, MODEL_NAME);
       // return temp
     },
+    nestedCommentsByComment(root, {
+      entityId,
+      category,
+      option
+    }, ctx) {
+      return ctx.connector[CONNECTOR_NAME].nestedCommentsByComment(entityId, category, option);
+      //var temp =  ResolverHelper.fetchById("", ctx, CONNECTOR_NAME, MODEL_NAME);
+      // return temp
+    },
   },
   Mutation: {
     commentAdd(root, {
       commentInput
     }, ctx) {
       return ctx.connector[CONNECTOR_NAME].commentAdd(commentInput);
+    },
+    nestedCommentAdd(root, {
+      commentInput
+    }, ctx) {
+      return ctx.connector[CONNECTOR_NAME].nestedCommentAdd(commentInput);
     },
     commentDelete(root, {
       id

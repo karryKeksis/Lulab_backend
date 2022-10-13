@@ -49,16 +49,6 @@ input UserInput {
       tags:[String]
 }
 
-input CommentInput {
-  _id: String
-  content: String
-  entityId: String
-  category: String
-  authorName: String
-  authorId: String
-  authorImg: String
-}
-
 
 input OrderRecordInput {
   courseId: String

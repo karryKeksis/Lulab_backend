@@ -27,7 +27,7 @@ module.exports = app => {
       unique: false,
       required: false,
     },
-    parentCommontId: {
+    parentCommentId: {
       type: String,
       unique: false,
       required: false,
@@ -52,7 +52,40 @@ module.exports = app => {
       unique: false,
       required: false,
     },
+    course: { 
+      type: String, 
+      ref: 'Course'
+    }, // 指向该评论所属的课程
+    isNestedComment: {
+       type: Boolean, 
+       default: false 
+    }, // 是否是评论的回复
+    comment: { 
+      type: String, 
+      ref: 'Comment' 
+    }, // 如果该评论是某评论的回复，指向所属的评论
+    nestedComment: { 
+      type: String, 
+      ref: 'Comment'
+    }, // 如果该评论是某评论的回复的回复，指向所回复的评论
 
+    // 发布者
+    author: {
+      type: String,
+      ref: 'User',
+      autopopulate: true 
+    },
+
+    // 是否被锁定
+    isBlocked: { 
+      type: Boolean, 
+      default: false 
+    },
+    // 是否被删除
+    isDeleted: { 
+      type: Boolean, 
+      default: false 
+    },
   });
   return mongoose.model('Comment', CommentSchema);
 }

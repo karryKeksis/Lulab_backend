@@ -15,6 +15,7 @@ type Mutation {
   userUpdate(userInput: UserInput!): result
 
   commentAdd(commentInput: CommentInput!): result
+  nestedCommentAdd(commentInput: CommentInput!): result
   commentDelete(id: ID!): result
 
   #mobilelog

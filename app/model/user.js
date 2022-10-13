@@ -80,26 +80,21 @@ module.exports = app => {
       unique: false,
       required: false,
     },
-
    password: {
       type: String,
       unique: false,
       required: false,
     },
-
-
     category:{
       type: String,
       unique: false,
       required: false,
     },
-
     userType:{
       type: String,
       unique: false,
       required: false,
     },
-
     imgUrl: {
       type: String,
       unique: false,
@@ -115,8 +110,6 @@ module.exports = app => {
         unique: false,
         required: false,
     },
-
-
     videos:[{
       type: String,
       unique: false,
@@ -142,8 +135,6 @@ module.exports = app => {
       unique: false,
       required: false,
     }],
-
-
     addTime: {
       type: String,
       unique: false,

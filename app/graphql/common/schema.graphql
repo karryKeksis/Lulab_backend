@@ -10,3 +10,9 @@ type Department {
 	location: String
 	subDepartments: [SubDepartment]
 }
+
+enum SecurityCheckStatus {
+	CHECKING
+	PASSED
+	FAILED
+}

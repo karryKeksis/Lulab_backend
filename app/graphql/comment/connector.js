@@ -14,45 +14,33 @@ class CommentConnector /*extends BasicConnector */{
     );
   }
 
-  async fetch(ids) {
-    return await this.ctx.model.Comment.find(null,null,{limit:4},function(err,docs){
-      //console.log(docs);
-    });
-  }
-
-  async fetchById(ids) {
-      return await this.ctx.model.Comment.find(null,null,{limit:4},function(err,docs){
-       // console.log(docs);
-      });
-  }
-
   fetchByIds(id) {
-      return this.loader.load(id);
+    return this.loader.load(id);
+}
+async latestComment(entityId, category, option){
+  return await this.ctx.model.Comment.find({entityId:entityId,category:category},null,{sort:{'_id': -1},limit:option.limit,skip:option.skip},function(err,docs){
+    // console.log(docs);
+  });
+}
+
+
+//login
+async fetchByComment(userInput) {
+  var user = await this.ctx.model.User.findOne(
+      {"name": userInput.name}, function (err, docs) {
+        console.log(docs);
+      }
+  );
+
+  await Promise.all([user]);
+  user = await user;
+  if (userInput.password == user.password) {
+    return {"status": 0, "msg": "success", data: user}
+  } else {
+    return {"status": 1, "msg": "faile"}
   }
-  async latestComment(entityId, category, option){
-    return await this.ctx.model.Comment.find({entityId:entityId,category:category},null,{sort:{'_id': -1},limit:option.limit,skip:option.skip},function(err,docs){
-      // console.log(docs);
-    });
-  }
 
-
-  //login
-  async fetchByComment(userInput) {
-    var user = await this.ctx.model.User.findOne(
-        {"name": userInput.name}, function (err, docs) {
-          console.log(docs);
-        }
-    );
-
-    await Promise.all([user]);
-    user = await user;
-    if (userInput.password == user.password) {
-      return {"status": 0, "msg": "success", data: user}
-    } else {
-      return {"status": 1, "msg": "faile"}
-    }
-
-  }
+}
 
 
   //add
@@ -87,6 +75,41 @@ class CommentConnector /*extends BasicConnector */{
     return {"status": 0, "msg": "插入成功"}
   }
 
+  async nestedCommentAdd(commentInput) {
+    if( !commentInput.entityId ){
+        return {"status": -1, "msg": "评论添加失败，评论主体不能为空"}
+    }
+    if(  !commentInput.content ){
+      return {"status": -1, "msg": "评论添加失败，评论不能为空"}
+    }
+    if(  !commentInput.authorId){
+      return {"status": -1, "msg": "评论添加失败，作者不能为空"}
+    }
+    if(  !commentInput.category){
+          return {"status": -1, "msg": "评论添加失败，类别不能为空"}
+    }
+    if(  !commentInput.parentCommentId){
+      return {"status": -1, "msg": "评论添加失败，一级评论不能为空"}
+}
+
+    var comment = await this.ctx.model.Comment.create(
+        {
+          content: commentInput.content,
+          entityId: commentInput.entityId,
+          category:  commentInput.category,
+          authorName: commentInput.authorName,
+          authorId: commentInput.authorId,
+          authorImg: commentInput.authorImg,
+          parentCommentId:commentInput.parentCommentId,
+          addTime   : new Date().toLocaleString(),
+          timestamp : '' + Date.now()
+        }
+    );
+    await Promise.all([comment]);
+    comment = await comment;
+    return {"status": 0, "msg": "插入成功"}
+  }
+
   //delete
   async commentDelete(id) {
 
@@ -102,3 +125,4 @@ class CommentConnector /*extends BasicConnector */{
 }
 
 module.exports = CommentConnector;
+

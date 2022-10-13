@@ -2,7 +2,7 @@
 type Comment {
 	_id: ID
 	content: String
-	entityId: String
+	entityId: String!
     parentCommentId: String
 	authorName: String
 	authorId: String
@@ -10,4 +10,28 @@ type Comment {
 	category: String
 	addTime   : Date
 	timestamp :String
+
+	course: ID # 指向该评论所属的课程
+	isNestedComment: Boolean # 是否是评论的回复
+	comment: Comment # 如果该评论是某评论的回复，指向所属的评论
+	nestedComment: Comment # 如果该评论是某评论的回复的回复，指向所回复的评论
+	nestedComments: [Comment] # 如果该评论包含回复，指向它的回复
+
+}
+
+input CommentInput {
+	_id: String
+
+	course: String # 指向该评论所属的课程
+	isNestedComment: Boolean # 是否是评论的回复
+	comment: String # 如果该评论是某评论的回复，指向所属的评论
+	nestedComment: String # 如果该评论是某评论的回复的回复，指向所回复的评论
+
+  	entityId: String
+  	category: String
+  	authorName: String
+  	authorId: String
+  	authorImg: String
+	content: String
+	parentCommentId:String
 }

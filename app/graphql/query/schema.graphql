@@ -23,10 +23,14 @@ type Query {
   #speech
   speechGoogle(speechRequest: SpeechRequest): result
 
-
-  #Latestcomment
+  #latestComment
   latestComment(entityId: String!, category: String, option :Option!): [Comment]
-
+  comment(id: ID!): Comment
+  comments(option: Option!, condition: Condition): [Comment]
+  commentsBySelf(userId: ID!, option: Option!, condition: Condition): [Comment]
+  commentsByCourse(id: ID!, userId: ID!, option: Option!, condition: Condition): [Comment]
+  nestedCommentsByComment( commentId: ID!,entityId: String!, category: String, option :Option!): [Comment]
+ 
   #detailCourse
   detailCourse(dirId: String): [Course]
 
