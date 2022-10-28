@@ -1,0 +1,13 @@
+'use strict';
+
+module.exports = {
+  // global error: 10xxxx
+  // global auth error: 1000xx
+  GLOBAL_AUTH_FAILED_TO_AUTH: 100000,
+  GLOBAL_AUTH_FAILED_TO_AUTH_EXPIRED_TOKEN: 100001,
+  // user error: 20xxxx
+  USER_FAILED_TO_USER_WECHAT_MINI_LOGIN: 200001,
+  // adminuser: 90xxxx
+  GLOBAL_AUTH_FAILED_TO_AUTH_ADMIN: 900000,
+  GLOBAL_AUTH_FAILED_TO_AUTH_ADMINEXPIRED_TOKEN: 900001,
+};

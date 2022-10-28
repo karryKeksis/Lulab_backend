@@ -15,16 +15,6 @@ class RoleService extends Service {
             return null
         }
     }
-    async add(title,description) {
-        let res = await this.ctx.model.Role.create({
-            title,description
-        })
-        return res;
-    }
-    async edit(_id,title,description,status){
-        let res = await this.ctx.model.Role.updateOne({_id},{title,description,status})
-        return res;
-    }
     async getRoleAccessList(id){
         try {
             let res = await this.ctx.model.RoleAccess.find({'role_id':id})

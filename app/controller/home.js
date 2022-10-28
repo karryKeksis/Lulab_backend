@@ -1,11 +1,10 @@
-'use strict'
+'use strict';
 
-const Controller = require('egg').Controller
-
-class HomeController extends Controller {
-  async index() {
-    this.ctx.body = 'hi,egg'
+module.exports = (app) => {
+  class HomeController extends app.Controller {
+    async index() {
+      this.ctx.body = 'hi, egg';
+    }
   }
-}
-
-module.exports = HomeController
+  return HomeController;
+};

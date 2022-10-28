@@ -19,13 +19,14 @@ module.exports = appInfo => {
     
   }
 
+  config.jwtOpts = {
+    secretKey: process.env.JWT_SECRET_KEY,
+    expireTime: 7 * 24 * 60 * 60,
+  },
+
   // use for cookie sign key, should change to your own and keep security
   config.keys = appInfo.name + '_1546846389359_709'
 
-  config.jwt = {
-    expire: 7200,
-    secret: 'b2ce49e4a541068d',
-  };
 
   /*config.redis = {
     client: {

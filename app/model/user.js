@@ -4,6 +4,15 @@
 module.exports = app => {
   const mongoose = app.mongoose;
   const Schema = mongoose.Schema;
+
+  var credentialSchema = mongoose.Schema({
+    clientType: String,
+    openId: String,
+    unionId: String,
+    sessionKey: String, // wechat only
+    accessToken: String, // internal access
+  },{ _id : false });
+
   const UserSchema = new Schema({
     name: {
       type: String,
@@ -146,6 +155,9 @@ module.exports = app => {
       required: false,
     },
   });
+
+  UserSchema.index({ "credential.openId": 1, "credential.openId": 1 });
+  UserSchema.index({ accessToken: 1 });
 
   return mongoose.model('User', UserSchema);
 }
