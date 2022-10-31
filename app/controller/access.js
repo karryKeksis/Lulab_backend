@@ -5,7 +5,7 @@ const BaseController = require('./base');
 const accessValidator = {
   title: { require: true, type: 'name', max: 50, field: '权限名称' },
   type: { require: true, type: 'posint', field: '权限类型' },
-  api_route_name: { require: false, type: 'name', max: 50, field: '接口路由' },
+  api_name: { require: false, type: 'name', max: 50, field: '接口路由' },
   sort: { require: true, type: 'posint', field: '排序' },
 };
 

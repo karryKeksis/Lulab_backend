@@ -17,10 +17,10 @@ module.exports = (app) => {
 
         async AccessList () {
             const { id } = this.ctx.params;
-            const data = await this.ctx.service.Role.etRoleAccessList({'role_id':id});
+            const data = await this.ctx.service.Role.getRoleAccessList({'role_id':id});
             this.success(data);
         }
 }
 
 module.exports = RoleController;
-};
+}

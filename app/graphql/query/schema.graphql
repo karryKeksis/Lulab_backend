@@ -40,6 +40,12 @@ type Query {
 
   #training
   latestTraining(option :Option!): [Training]
+  
+  #role
+  latestRole(option :Option!): [Role]
+
+   #access
+  latestAccess(option :Option!): [Access]
 
   #orderrecord
   latestRecord(authorId: String!,option :Option!): [OrderRecord]

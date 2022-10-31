@@ -14,20 +14,19 @@ module.exports = name => { // 此处name为 auth(xxx) 的xxx
     if (!name) {
       return true;
     }
-    // 查询菜单是否存在
-    const menu = await ctx.model.AdminMenu.findOne({ where: { api_route_name: name } });
-    if (menu === null) {
+    // 查询权限是否存在
+    const access = await ctx.model.Access.findOne({ where: { api_name: name } });
+    if (access === null) {
       return true;
     }
     // 查询用户绑定的角色
-    const roles = await ctx.model.AdminRoleUser.findAll({ attributes: [ 'role_id' ], where: { user_id: userId } });
+    const roles = await ctx.model.RoleUser.findAll({ attributes: [ 'role_id' ], where: { user_id: userId } });
     const roleIds = roles.map(item => item.role_id);
     if (roleIds.includes(1)) {
       return true;
     }
-    const Op = ctx.app.Sequelize.Op;
-    // 查询用户是否有菜单的权限
-    const hasAccess = await ctx.model.AdminRoleMenu.findOne({ where: { role_id: { [Op.in]: roleIds }, menu_id: menu.id } });
+    // 查询用户是否有权限
+    const hasAccess = await ctx.model.RoleAccess.findOne({ where: { role_id: roleIds }, access_id: access.id } );
     if (hasAccess === null) {
       throw new AuthException('权限不足', 10002);
     }
