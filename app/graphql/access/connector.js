@@ -28,11 +28,15 @@ class AccessConnector /*extends BasicConnector */{
   fetchByIds(id) {
       return this.loader.load(id);
   }
-  async latestRole(option){
+  async latestAccess(option){
     return await this.ctx.model.Access.find(null,null,{limit:option.limit,skip:option.skip},function(err,docs){
       // console.log(docs);
     });
  }
-
+  async latestRoleAccess(option){
+    return await this.ctx.model.roleAccess.find(null,null,{limit:option.limit,skip:option.skip},function(err,docs){
+      // console.log(docs);
+    });
+ }
 }
 module.exports = AccessConnector;

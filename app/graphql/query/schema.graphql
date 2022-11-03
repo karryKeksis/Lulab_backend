@@ -43,9 +43,10 @@ type Query {
   
   #role
   latestRole(option :Option!): [Role]
-
+  latestUserRole(option :Option!): [UserRole]
    #access
   latestAccess(option :Option!): [Access]
+  latestRoleAccess(option :Option!): [RoleAccess]
 
   #orderrecord
   latestRecord(authorId: String!,option :Option!): [OrderRecord]

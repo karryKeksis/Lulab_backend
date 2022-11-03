@@ -20,13 +20,13 @@ module.exports = name => { // 此处name为 auth(xxx) 的xxx
       return true;
     }
     // 查询用户绑定的角色
-    const roles = await ctx.model.RoleUser.findAll({ attributes: [ 'role_id' ], where: { user_id: userId } });
+    const roles = await ctx.model.userRole.findAll({ attributes: [ 'role_id' ], where: { user_id: userId } });
     const roleIds = roles.map(item => item.role_id);
     if (roleIds.includes(1)) {
       return true;
     }
     // 查询用户是否有权限
-    const hasAccess = await ctx.model.RoleAccess.findOne({ where: { role_id: roleIds }, access_id: access.id } );
+    const hasAccess = await ctx.model.roleAccess.findOne({ where: { role_id: roleIds }, access_id: access.id } );
     if (hasAccess === null) {
       throw new AuthException('权限不足', 10002);
     }
