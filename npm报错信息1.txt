@@ -1,0 +1,15 @@
+2022-07-19 20:45:44,967 ERROR 5724 nodejs.ClusterClientNoResponseError: client no response in 665478ms exceeding maxIdleTime 60000ms, maybe the connection is close on other side.
+    at Timeout._onTimeout (D:\git file\lulab_backend\node_modules\cluster-client\lib\leader.js:77:23)
+    at listOnTimeout (node:internal/timers:559:17)
+    at processTimers (node:internal/timers:502:7)
+name: "ClusterClientNoResponseError"
+pid: 5724
+hostname: DESKTOP-UNVS89O
+
+2022-07-19 20:35:19,469 ERROR 12480 nodejs.ServerNoResponseError: server 127.0.0.1:57965 no response in 20001ms, maybe the socket is end on the other side. (address: 127.0.0.1:57965)
+    at Timeout._onTimeout (D:\git file\lulab_backend\node_modules\tcp-base\lib\base.js:427:21)
+    at listOnTimeout (node:internal/timers:559:17)
+    at processTimers (node:internal/timers:502:7)
+name: "ServerNoResponseError"
+pid: 12480
+hostname: DESKTOP-UNVS89O

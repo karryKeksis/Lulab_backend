@@ -1,0 +1,26 @@
+type orderResult{
+    orderInfo:String
+    timestamp: String
+    out_trade_no:String
+    total_amount: String
+    subject:String
+    body: String
+}
+
+type orderInfoResult{
+    userId:String
+    userPhone:String
+    goodsCategory:String
+    paymentWay:String
+    orderInfo:String
+    timestamp: String
+    out_trade_no:String
+    total_amount: String
+    subject:String
+    body: String
+    status:String
+    trade_no:String
+    refundReason:String
+    refundDescription:String
+    tradeStatus:String
+}

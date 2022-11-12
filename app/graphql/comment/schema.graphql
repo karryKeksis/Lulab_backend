@@ -1,0 +1,13 @@
+
+type Comment {
+	_id: ID
+	content: String
+	entityId: String
+    parentCommentId: String
+	authorName: String
+	authorId: String
+	authorImg: String
+	category: String
+	addTime   : Date
+	timestamp :String
+}

@@ -1,0 +1,10 @@
+type ProductInfo{
+    poster: String
+    paymentWay: String
+    goodsPrice: String
+    goodsTime: String
+    goodsName: String
+    goodsBody: String
+    goodsId: String
+    goodsCategory: String
+}

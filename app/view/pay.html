@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css"/>
+    <title>Document</title>
+</head>
+<body>
+    <div class="section section-payment">
+        <div class="cash-title" id="J_cashTitle">
+            选择以下支付方式付款
+        </div>
+    
+        <div class="payment-box ">
+            <div class="payment-body">
+                <ul class="clearfix payment-list J_paymentList J_linksign-customize">
+                    <!-- 微信支付暂时不考虑，下面只有支付宝 -->
+                    <li class="J_bank" id="alipay">
+                        <a target="_blank" href="/pay/ali?id=<%=id%>"> <img src="/public/web/image/payOnline_zfb.png" alt="支付宝" style="margin-left: 0;"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal fade" id="alipayModel" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">正在支付...</h4>
+                </div>
+                <div class="modal-body">
+                    <a href="#">已经支付成功</a>
+                    <br>
+                    <br>
+                    <br>
+                    <a href="#">未支付成功</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+    // 这里使用jQuery，当前前提要引入jQuery
+    $("#alipay").click(function() {
+        // 因为点击支付宝支付图片跳转到支付宝的我的收银台是打开一个新的页面，所以当前页面这里直接展示弹窗，后续如何处理，看业务需求
+        $('#alipayModel').modal('show');
+    });
+    
+    // 这里有个轮询订单状态，支付成功后，跳转到用户订单页面，这里接口和路由都需要编写和配置，不做展示
+    var timer = setInterval(function() {
+        $.get('/order/getOrderPayStatus?id=<%=id%>', function(response) {
+            // console.log(response);
+            if (response.success) {
+                clearInterval(timer);
+                location.href = '/user/order'
+            }
+        });
+    }, 5000);
+    </script>
+</body>
+</html>
