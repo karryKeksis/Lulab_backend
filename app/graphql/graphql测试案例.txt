@@ -13,18 +13,13 @@ mutation{
 }
 alipayOrder
 mutation {
-  alipayOrder(orderInput:{userId:"路凯",userPhone:"123456",out_trade_no:"1569380127332",goodsCategory:"app端产品",paymentWay:"支付宝app端支付"}) {
+  alipayOrder(orderInput:{userId:"路凯",userPhone:"123456",goodsCategory:"app端产品",paymentWay:"支付宝app端支付"}) {
     orderInfo
-    timestamp
-    out_trade_no
-    total_amount
-    subject
-    body
   }
 }
 tcdrhd3616@sandbox.com
 query{
-  alipayCallback(queryInput:{userId:"1",userPhone:"2",out_trade_no:"1569380127332"}){
+  alipayCallback(queryInput:{userId:"1",userPhone:"2",out_trade_no:"1"}){
     msg
     status
   }
@@ -33,7 +28,7 @@ query{
   alipayRefund(refundInput:{
     userId:"1",
     userPhone:"2",
-    out_trade_no:"1569380127332",
+    out_trade_no:"1",
   	reason:"课程质量一般",
     description:"感觉没有想象中那么好"
   }){
@@ -47,8 +42,27 @@ query{
     userPhone
     goodsCategory
     paymentWay
-    orderInfo
-    timestamp
+    payTime
+    refundTime
+    out_trade_no
+    total_amount
+    subject
+    body
+    status
+    trade_no
+    refundReason
+    refundDescription
+    tradeStatus
+  }
+}
+query{
+  alipayOrderDetail(orderDetailInput:{orderID:"1"}){
+		userId
+    userPhone
+    goodsCategory
+    paymentWay
+    payTime
+    refundTime
     out_trade_no
     total_amount
     subject

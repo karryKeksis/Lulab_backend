@@ -1,10 +1,5 @@
 type orderResult{
     orderInfo:String
-    timestamp: String
-    out_trade_no:String
-    total_amount: String
-    subject:String
-    body: String
 }
 
 type orderInfoResult{
@@ -12,8 +7,25 @@ type orderInfoResult{
     userPhone:String
     goodsCategory:String
     paymentWay:String
-    orderInfo:String
-    timestamp: String
+    payTime: String
+    refundTime: String
+    out_trade_no:String
+    total_amount: String
+    subject:String
+    body: String
+    status:String
+    trade_no:String
+    refundReason:String
+    refundDescription:String
+    tradeStatus:String
+}
+type orderDetailResult{
+    userId:String
+    userPhone:String
+    goodsCategory:String
+    paymentWay:String
+    payTime: String
+    refundTime: String
     out_trade_no:String
     total_amount: String
     subject:String

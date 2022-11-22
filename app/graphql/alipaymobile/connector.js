@@ -25,7 +25,7 @@ class AlipayMobileConnector /*extends BasicConnector */{
     await this.ctx.model.Order.create({out_trade_no:"1569380127323",all_price:0.03},function(err,docs){});
     await this.ctx.model.Order.create({out_trade_no:"1569380127324",all_price:0.04,subject:"支付宝支付"},function(err,docs){});*/
     
-    var orderNo = await this.ctx.model.Order.find(
+    var orderID = await this.ctx.model.Order.find(
         {},null, function (err, docs) {
         //console.log(docs);
     }).count()+1;
@@ -42,7 +42,7 @@ class AlipayMobileConnector /*extends BasicConnector */{
     var data = {
         subject: info[0].goodsName, // 这里显示什么，同微信支付，看需求
         body:info[0].goodsBody,
-        out_trade_no: (orderNo+''), // 必须是string类型
+        out_trade_no: (orderID+''), // 必须是string类型
         total_amount: info[0].goodsPrice,
     }
 
@@ -50,6 +50,7 @@ class AlipayMobileConnector /*extends BasicConnector */{
       //实例化 alipay*/
       var option0 = ctx.app.config.pay.ali.options;
       var timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
+      console.log("payTime="+timestamp);
       option0.timestamp = timestamp;
       const service = new Alipay(option0);
       //获取返回的参数
@@ -66,8 +67,8 @@ class AlipayMobileConnector /*extends BasicConnector */{
       userPhone:orderInput.userPhone,
       goodsCategory:orderInput.goodsCategory,
       paymentWay:orderInput.paymentWay,
-      timestamp: option0.timestamp,
-      out_trade_no: orderInput.out_trade_no/*(orderNo+'')*/,
+      payTime: option0.timestamp,
+      out_trade_no: /*orderInput.out_trade_no*/(orderID+''),
       total_amount:info[0].goodsPrice,
       subject: info[0].goodsName, // 这里显示什么，同微信支付，看需求
       body:info[0].goodsBody,
@@ -78,7 +79,7 @@ class AlipayMobileConnector /*extends BasicConnector */{
     console.log(result1);
     console.log("------------------------------------------------");
     //this.ctx.redirect(url); // 这里跳转到支付宝 我的收银台 进行扫码支付或登录账户支付
-    return result1;
+    return {orderInfo:(result.data+'')};
   }
   async alipayCallback(queryInput) {
     const { ctx } = this;
@@ -88,7 +89,7 @@ class AlipayMobileConnector /*extends BasicConnector */{
     await this.ctx.model.Order.create({out_trade_no:"1569380127323",all_price:0.03},function(err,docs){});
     await this.ctx.model.Order.create({out_trade_no:"1569380127324",all_price:0.04,subject:"支付宝支付"},function(err,docs){});*/
     
-    /*var orderNo = await this.ctx.model.Order.find(
+    /*var orderID = await this.ctx.model.Order.find(
         {},null, function (err, docs) {
         //console.log(docs);
     }).count()+1;*、
@@ -105,7 +106,7 @@ class AlipayMobileConnector /*extends BasicConnector */{
     var data = {
         subject: info[0].goodsName, // 这里显示什么，同微信支付，看需求
         body:info[0].goodsBody,
-        out_trade_no: (orderNo+''), // 必须是string类型
+        out_trade_no: (orderID+''), // 必须是string类型
         total_amount: info[0].goodsPrice,
     }*/
 
@@ -137,7 +138,7 @@ class AlipayMobileConnector /*extends BasicConnector */{
       goodsCategory:orderInput.goodsCategory,
       paymentWay:orderInput.paymentWay,
       timestamp: option0.timestamp,
-      out_trade_no: (orderNo+''),
+      out_trade_no: (orderID+''),
       total_amount:info[0].goodsPrice,
       subject: info[0].goodsName, // 这里显示什么，同微信支付，看需求
       body:info[0].goodsBody,
@@ -179,7 +180,7 @@ class AlipayMobileConnector /*extends BasicConnector */{
     await this.ctx.model.Order.create({out_trade_no:"1569380127323",all_price:0.03},function(err,docs){});
     await this.ctx.model.Order.create({out_trade_no:"1569380127324",all_price:0.04,subject:"支付宝支付"},function(err,docs){});*/
     
-    /*var orderNo = await this.ctx.model.Order.find(
+    /*var orderID = await this.ctx.model.Order.find(
         {},null, function (err, docs) {
         //console.log(docs);
     }).count()+1;*、
@@ -196,7 +197,7 @@ class AlipayMobileConnector /*extends BasicConnector */{
     var data = {
         subject: info[0].goodsName, // 这里显示什么，同微信支付，看需求
         body:info[0].goodsBody,
-        out_trade_no: (orderNo+''), // 必须是string类型
+        out_trade_no: (orderID+''), // 必须是string类型
         total_amount: info[0].goodsPrice,
     }*/
 
@@ -232,6 +233,7 @@ class AlipayMobileConnector /*extends BasicConnector */{
         },{
           $set:{
             status:"TRADE_CLOSED",
+            refundTime:result1.data.gmt_refund_pay,
             refundReason:refundInput.reason,
             refundDescription:refundInput.description
         }});
@@ -308,7 +310,7 @@ class AlipayMobileConnector /*extends BasicConnector */{
       goodsCategory:orderInput.goodsCategory,
       paymentWay:orderInput.paymentWay,
       timestamp: option0.timestamp,
-      out_trade_no: (orderNo+''),
+      out_trade_no: (orderID+''),
       total_amount:info[0].goodsPrice,
       subject: info[0].goodsName, // 这里显示什么，同微信支付，看需求
       body:info[0].goodsBody,
@@ -326,6 +328,26 @@ class AlipayMobileConnector /*extends BasicConnector */{
   }
 
 
+  async alipayOrderDetail(orderDetailInput){
+    const { ctx } = this;
+    console.log("orderID="+orderDetailInput.orderID);
+    var info = await this.ctx.model.Order.findOne({
+      out_trade_no:orderDetailInput.orderID
+    },null, function (err, docs) {
+      //console.log(docs);
+    });
+      if(info.status === "WAIT_BUYER_PAY")
+        info.tradeStatus = "下单但是未付款";
+      else if(info.status === "TRADE_SUCCESS")
+        info.tradeStatus = "已经成功付款";
+      else if(info.status === "TRADE_CLOSED")
+        info.tradeStatus = "已退款或未在下单后规定时间内付款";
+      else if(info.status === "TRADE_CLOSED")
+        info.tradeStatus = "已退款或未在下单后规定时间内付款";
+    console.log(info);
+    delete info.orderInfo;
+    return info;
+  }
   async alipayOrderInfo(orderInfoInput){
     const { ctx } = this;
     var info = await this.ctx.model.Order.find({
@@ -336,6 +358,7 @@ class AlipayMobileConnector /*extends BasicConnector */{
     });
     var i;
     for(i=0;i<info.length;i++){
+      delete info[i].orderInfo;
       if(info[i].status === "WAIT_BUYER_PAY")
         info[i].tradeStatus = "下单但是未付款";
       else if(info[i].status === "TRADE_SUCCESS")

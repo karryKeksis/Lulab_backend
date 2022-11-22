@@ -55,6 +55,7 @@ type Query {
   alipayCallback(queryInput:QueryInput!):result
   alipayRefund(refundInput:RefundInput!):result
   alipayOrderInfo(orderInfoInput:OrderInfoInput!):[orderInfoResult]
+  alipayOrderDetail(orderDetailInput:OrderDetailInput!):orderDetailResult
 
 
 }

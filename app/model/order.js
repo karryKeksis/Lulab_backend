@@ -31,7 +31,13 @@ module.exports = app => {
         required: false,
         get: v => v==null ? "" : v,
       },
-      timestamp: {
+      payTime: {
+        type: String,
+        unique: false,
+        required: false,
+        get: v => v==null ? "" : v,
+      },
+      refundTime: {
         type: String,
         unique: false,
         required: false,

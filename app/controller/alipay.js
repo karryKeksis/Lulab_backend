@@ -36,7 +36,7 @@ class AlipayController extends Controller {
     formData.addField("charset", "utf-8");
     formData.addField("signType", "RSA2");
     formData.addField("bizContent", {
-      outTradeNo: "1569380127335",// 【必选】商户订单号：64个字符内，包含数字，字母，下划线；需要保证在商户端不重复
+      outTradeNo: "2"/*569380127338*/,// 【必选】商户订单号：64个字符内，包含数字，字母，下划线；需要保证在商户端不重复
       productCode: "FAST_INSTANT_TRADE_PAY",// 【必选】销售产品码，目前仅支持FAST_INSTANT_TRADE_PAY
       totalAmount: "0.01",// 【必选】订单总金额，精确到小数点后两位
       subject: "会员",// 【必选】 订单标题

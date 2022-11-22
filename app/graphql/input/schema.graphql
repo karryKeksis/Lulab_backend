@@ -78,6 +78,10 @@ input OrderInfoInput{
   userPhone:String
 }
 
+input OrderDetailInput{
+  orderID:String
+}
+
 input CommentInput {
   _id: String
   content: String
@@ -128,7 +132,6 @@ input AlipayInput{
 input OrderInput{
   userId: String
   userPhone: String
-  out_trade_no: String
   goodsCategory: String
   paymentWay: String
 }

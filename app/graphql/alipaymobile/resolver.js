@@ -30,6 +30,11 @@
     }, ctx) {
       return ctx.connector[CONNECTOR_NAME].alipayOrderInfo(orderInfoInput);
     },
+    alipayOrderDetail(root, {
+      orderDetailInput
+    }, ctx) {
+      return ctx.connector[CONNECTOR_NAME].alipayOrderDetail(orderDetailInput);
+    },
    }
  };
  
