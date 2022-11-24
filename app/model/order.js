@@ -107,25 +107,25 @@ module.exports = app => {
 //     const mongoose = app.mongoose;
 //     const Schema = mongoose.Schema;
 
-//     const d = new Date();
+//   仕明哥，抱歉啦，因为order这块的模型我也要用所以就把你的注释掉了
+//   如果后面需要用的话把前面注释掉然后再把后面这块解除注释就和原来一模一样了
+//   const OrderSchema = new Schema({
+//     title: { type: String },
+//     uid: { type: Schema.Types.ObjectId },
+//     goods_id: { type: Schema.Types.ObjectId },
+//     description: { type: String },
+//     price: { type: Number },
+//     orderNumber: { type: Number },
+//     methods: { type: Number }, // 支付方式
+//     seller_email: { type: String },
+//     status: { type: Number, default: 1 },
+//   }, {
+//     timestamps: true,
+//   });
 
-//     const OrderSchema = new Schema({
-//         title: { type: String },
-//         uid: { type: Schema.Types.ObjectId },
-//         goods_id: { type: Schema.Types.ObjectId },
-//         description: { type: String },
-//         price: { type: Number },
-//         orderNumber: { type: Number },
-//         methods: { type: Number }, // 支付方式
-//         seller_email: { type: String },
-//         status: { type: Number, default: 1 },
-//         createdAt: {
-//             type: Number,
-//             default: d.getTime(),
-//         },
-//     }, {
-//         timestamps: true,
-//     });
+//   const Order = mongoose.model('Order', OrderSchema, 'order');
+//   return Order;
+// };
 
 //     const Order = mongoose.model('Order', OrderSchema, 'order');
 //     return Order;
