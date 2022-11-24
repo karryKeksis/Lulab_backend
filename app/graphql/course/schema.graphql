@@ -1,20 +1,26 @@
+type Category {
+  _id:String,
+  title: String,
+}
+
 
 type Course {
-	_id: ID
-	title: String
-	dirTitle: String
-	classTags: String
-	description: String
-	author: String
-	authorTags: String
-	category: String
-	mode : String
-    videoUrl :String
-    imgUrl : String
-    sort : Number
-    mainCourseId : String
-    duration :Number
-	onlineTime : Date
-	addTime   : Date
-	updateTime : Date
+  _id: String,
+  createdAt: String,
+  title: String,
+  author: String,
+  description: String,
 }
+
+type CourseDetail {
+  _id: String,
+  title: String,
+}
+
+type Link {
+  link: String,
+}
+
+
+
+

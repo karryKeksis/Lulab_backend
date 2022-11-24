@@ -52,7 +52,7 @@ input UserInput {
       tags:[String]
       homeTown:[String]
       location:[String]
-      level:Number
+      level:Int
 }
 
 input ProductInput{

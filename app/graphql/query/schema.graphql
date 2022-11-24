@@ -1,54 +1,37 @@
 type Query {
-  # User
-  usersAdmin(option: Option!, condition: Condition): [User]
-  userAdmin(id: ID!): User
-  #userLogin(userLoginPayload: UserLoginPayload!): User!
-  userRich(id: ID!): User!
-  userLogin(userInput: UserInput!): result
-  latestClassificationUser(category: String , option: Option):[User]
+  #验证码相关
+  verifySend(mobile: String!, area: Int!): Res!
 
+  #verifyCheck(mobile: String!, code: String!): Res!
 
-  # userByToken(clientType: String!, accessToken: String!): User!
+  loginCaptcha(mobile: String!, area: Int!, code: Int!): Return!
+  loginOne_click(mobile: String!, accessCode: String!, outId: String!): Return!
+  loginPassword(mobile: String!, password: String!): Return!
+  #登陆注册
+  logOut: Res!
 
-  circles(option: Option!, condition: Condition): [Circle!]
-  circle(id: ID!): Circle!
+  courseCategory: [Category!]
+  course(category_id: String!, page: Int!, limit: Int!): [Course!]
+  courseDetail(course_id: String!, skip: Int!, limit: Int!): [CourseDetail!]
+  #课程请求
+  courseLink(detail_id: String!): Link!
 
-  latestCourse(option: Option!): [Course]
-  latestMainCourse(option: Option!): [MainCourse]
-  latestDirectCourse(mode : String!,  authorId: String, option: Option!): [MainCourse]
-  latestInformation(option: Option!): [Information]
-  latestGeekInformation(option: Option!): [Information]
-  detailMainCourse(courseId: String!): MainCourse
+  # 获取支付信息
+  reToken(token: String!): Token!
 
-  #speech
-  speechGoogle(speechRequest: SpeechRequest): speechResult
+  # user
+  user: [User!]
 
+  # 获取支付信息
+  orderInfo(number: Int!): OrderInfo!
 
-  #Latestcomment
-  latestComment(entityId: String!, category: String, option :Option!): [Comment]
+  # 七牛云
+  qiniu: Qiniu!
 
-  #detailCourse
-  detailCourse(dirId: String): [Course]
+  #退出登陆
 
-  #mobilelog
-  latestMobileLog(userId: String!,option :Option!): [MobileLog]
-
-  #growth
-  latestUserGrowth(userId: String!,option :Option!): [Growth]
-
-
-  #training
-  latestTraining(option :Option!): [Training]
-
-  #orderrecord
-  latestRecord(authorId: String!,option :Option!): [OrderRecord]
-  latestUserCourseRecord(authorId: String!, courseId: String!): result
-
-  #manager
-  queryManager(option :Option!): [Manager]
-
-  #courseclassification
-  queryCourseClassification(option :Option!): [CourseClassification]
+  #获取商品信息
+  goodInfo(number: Int!): GoodRes!
 
   #alipayinfo
   alipayInfo(productInput:ProductInput!):ProductInfo
@@ -56,6 +39,4 @@ type Query {
   alipayRefund(refundInput:RefundInput!):result
   alipayOrderInfo(orderInfoInput:OrderInfoInput!):[orderInfoResult]
   alipayOrderDetail(orderDetailInput:OrderDetailInput!):orderDetailResult
-
-
 }

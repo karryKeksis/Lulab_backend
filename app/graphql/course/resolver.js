@@ -1,26 +1,25 @@
 'use strict';
 
-const ResolverHelper = require("../common/resolverHelper");
-
-const CONNECTOR_NAME = 'course';
-const MODEL_NAME = 'Course';
-
 module.exports = {
-  Query: {
-    latestCourse(root, {
-      option
-    }, ctx) {
-      return ctx.connector[CONNECTOR_NAME].latestCourse(option);
-      //var temp =  ResolverHelper.fetchById("", ctx, CONNECTOR_NAME, MODEL_NAME);
-      // return temp
+    Query: {
+        courseCategory(root, { }, ctx) {
+            return ctx.connector.course.category();
+        },
+        course(root, { category_id, page, limit }, ctx) {
+            return ctx.connector.course.course(category_id, page, limit);
+        },
+        courseDetail(root, { course_id, skip, limit }, ctx) {
+            return ctx.connector.course.courseDetail(course_id, skip, limit);
+        },
+        courseLink(root, { detail_id }, ctx) {
+            return ctx.connector.course.courseLink(detail_id);
+        },
     },
-    detailCourse(root, {
-        dirId
-    }, ctx) {
-      return ctx.connector[CONNECTOR_NAME].detailCourse(dirId);
-      //var temp =  ResolverHelper.fetchById("", ctx, CONNECTOR_NAME, MODEL_NAME);
-      // return temp
-    }
-
-  }
+    // Mutation: {
+    //   adduser(root, {
+    //     username
+    //   }, ctx) {
+    //     return ctx.connector.user.add(username);
+    //   },
+    // }
 };

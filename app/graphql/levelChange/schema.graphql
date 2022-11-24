@@ -1,6 +1,0 @@
-
-type LevelChange {
-	_id: ID
-	name: String!
-	level: Int
-}

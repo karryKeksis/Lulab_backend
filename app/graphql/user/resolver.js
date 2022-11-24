@@ -1,52 +1,34 @@
 'use strict';
 
-const ResolverHelper = require("../common/resolverHelper");
-
-const CONNECTOR_NAME = 'user';
-const MODEL_NAME = 'User';
-
-const GeekParkSpider = require("../../spider/geekParkSpider")
-
-module.exports = {  
-    
+module.exports = {
     Query: {
-        async userAdmin(root, {
-            id
-        }, ctx) {
-            return await ResolverHelper.fetchById(id, ctx, CONNECTOR_NAME, MODEL_NAME);
+        user(root, { }, ctx) {
+            return ctx.connector.user.fetchAll();
         },
-        userLogin(root, {
-            userInput
-        }, ctx) {
-            return ctx.connector[CONNECTOR_NAME].fetchByName(userInput);
+        loginPassword(root, { mobile, password }, ctx) {
+            return ctx.connector.user.login(mobile, password);
         },
-        usersAdmin(root, {
-            option,
-            condition
-        }, ctx) {
-
-            return ResolverHelper.fetchByIds(option, condition, ctx, CONNECTOR_NAME, MODEL_NAME);
+        loginCaptcha(root, { mobile, code, area }, ctx) {
+            return ctx.connector.user.loginCaptcha(mobile, code, area);
         },
-        latestClassificationUser(root, {
-            category,
-            option
-        }, ctx) {
-
-            return ctx.connector[CONNECTOR_NAME].latestClassificationUser(category , option);
-        }
-
+        loginOne_click(root, { mobile, accessCode, outId }, ctx) {
+            return ctx.connector.user.login(mobile, accessCode, outId);
+        },
+        logOut(root, { }, ctx) {
+            return ctx.connector.user.logOut();
+        },
+        // userEdit(root, { }, ctx) {
+        //   return ctx.connector.user.userEdit();
+        // },
     },
     Mutation: {
-        userUpdate(root, {
-            userInput
-        }, ctx) {
-            return ctx.connector[CONNECTOR_NAME].userUpdate(userInput);
+        // adduser(root, {
+        //   username,
+        // }, ctx) {
+        //   return ctx.connector.user.add(username);
+        // },
+        passwordChange(root, { mobile, password, code }, ctx) {
+            return ctx.connector.user.passwordChange(mobile, password, code);
         },
-        userRigister(root, {
-            userInput
-        }, ctx) {
-            return ctx.connector[CONNECTOR_NAME].userRigister(userInput);
-        },
-      
-    }
+    },
 };

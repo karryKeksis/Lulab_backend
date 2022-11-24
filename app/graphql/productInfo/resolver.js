@@ -4,10 +4,10 @@ const ResolverHelper = require("../common/resolverHelper");
 
 const CONNECTOR_NAME = 'productInfo';
 
-const GeekParkSpider = require("../../spider/geekParkSpider")
+// const GeekParkSpider = require("../../spider/geekParkSpider")
 
-module.exports = {  
-    
+module.exports = {
+
     /*Query: {
         async userAdmin(root, {
             id
@@ -42,5 +42,5 @@ module.exports = {
             return ctx.connector[CONNECTOR_NAME].alipayInfo(productInput);
         },
     }
-}; 
+};
 
