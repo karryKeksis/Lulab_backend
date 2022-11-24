@@ -8,14 +8,14 @@ module.exports = appInfo => {
         ignore: () => true
       }
     },
-    cors: {
+    cors: { 
       origin: '*',
       allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH'
     },
     proxyworker: {
       port: 10086
     },
-    middleware: ['graphql']
+    middleware: ['auth', 'graphql']
     
   }
 
@@ -23,11 +23,20 @@ module.exports = appInfo => {
     secretKey: process.env.JWT_SECRET_KEY,
     expireTime: 7 * 24 * 60 * 60,
   },
+  
+  config.validate = {
+    convert: true,
+    validateRoot: false,
+  };
 
   // use for cookie sign key, should change to your own and keep security
   config.keys = appInfo.name + '_1546846389359_709'
 
-
+ // 七牛云配置
+ config.qiniu = {
+  AccessKey: process.env.QINIU_ACCESS_KEY, // 七牛云Access_Key
+  SecretKey: process.env.QINIU_SECRET_KEY, // 七牛云SecretKey
+};
   /*config.redis = {
     client: {
       port: 6379,          // Redis port

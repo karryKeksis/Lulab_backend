@@ -14,12 +14,5 @@ module.exports = {
       //var temp =  ResolverHelper.fetchById("", ctx, CONNECTOR_NAME, MODEL_NAME);
       // return temp
     },
-    latestRoleAccess(root, {
-      option
-    }, ctx) {
-      return ctx.connector[CONNECTOR_NAME].latestRoleAccess(option);
-      //var temp =  ResolverHelper.fetchById("", ctx, CONNECTOR_NAME, MODEL_NAME);
-      // return temp
-    },
   }
 };

@@ -15,37 +15,37 @@ module.exports = app => {
       unique: false,
       required: false,
     },
-    age:{
+    age: {
       type: String,
       unique: false,
       required: false,
     },
-    schoolRecord:{
+    schoolRecord: {
       type: String,
       unique: false,
       required: false,
     },
-    position:{
+    position: {
       type: String,
       unique: false,
       required: false,
     },
-    location:{
+    location: {
       type: String,
       unique: false,
       required: false,
     },
-    country:{
+    country: {
       type: String,
       unique: false,
       required: false,
     },
-    phone:{
+    phone: {
       type: String,
       unique: false,
       required: false,
     },
-    email:{
+    email: {
       type: String,
       unique: false,
       required: false,
@@ -55,12 +55,12 @@ module.exports = app => {
       unique: false,
       required: false,
     },
-    workCondition:{
+    workCondition: {
       type: String,
       unique: false,
       required: false,
     },
-    industry:{
+    industry: {
       type: String,
       unique: false,
       required: false,
@@ -75,22 +75,22 @@ module.exports = app => {
       unique: false,
       required: false,
     },
-    detailMsg:{
+    detailMsg: {
       type: String,
       unique: false,
       required: false,
     },
-   password: {
+    password: {
       type: String,
       unique: false,
       required: false,
     },
-    category:{
+    category: {
       type: String,
       unique: false,
       required: false,
     },
-    userType:{
+    userType: {
       type: String,
       unique: false,
       required: false,
@@ -106,31 +106,31 @@ module.exports = app => {
       required: false,
     },
     bigCoverUrl: {
-        type: String,
-        unique: false,
-        required: false,
+      type: String,
+      unique: false,
+      required: false,
     },
-    videos:[{
+    videos: [{
       type: String,
       unique: false,
       required: false,
     }],
-    imgs:[{
+    imgs: [{
       type: String,
       unique: false,
       required: false,
     }],
-    docs:[{
+    docs: [{
       type: String,
       unique: false,
       required: false,
     }],
-    growthDescriptions:[{
+    growthDescriptions: [{
       type: String,
       unique: false,
       required: false,
     }],
-    tags:[{
+    tags: [{
       type: String,
       unique: false,
       required: false,

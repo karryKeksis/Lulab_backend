@@ -33,11 +33,5 @@ class RoleConnector /*extends BasicConnector */{
       // console.log(docs);
     });
   }
-  async latestUserRole(option){
-    return await this.ctx.model.userRole.find(null,null,{limit:option.limit,skip:option.skip},function(err,docs){
-      // console.log(docs);
-    });
- }
-
 }
 module.exports = RoleConnector;

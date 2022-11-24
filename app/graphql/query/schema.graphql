@@ -43,11 +43,11 @@ type Query {
   
   #role
   latestRole(option :Option!): [Role]
-  latestUserRole(option :Option!): [UserRole]
+
    #access
   latestAccess(option :Option!): [Access]
-  latestRoleAccess(option :Option!): [RoleAccess]
 
+  qiniu: Qiniu!
   #orderrecord
   latestRecord(authorId: String!,option :Option!): [OrderRecord]
   latestUserCourseRecord(authorId: String!, courseId: String!): result
