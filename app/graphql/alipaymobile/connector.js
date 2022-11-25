@@ -1,18 +1,8 @@
 'use strict';
-const DataLoader = require('dataloader');
-const BasicConnector = require('../common/basicConnector');
-const fs = require('fs');
-const path = require('path');
-const assert = require('assert');
 const moment = require('moment');
 
 const Alipay = require('alipay-mobile').default;
 class AlipayMobileConnector /* extends BasicConnector */ {
-  constructor(ctx, model) {
-    this.ctx = ctx;
-    // this.model = model;
-    this.loader = new DataLoader(ids => this.fetch(ids));
-  }
 
   async alipayOrder(orderInput) {
     const { ctx } = this;
@@ -23,19 +13,16 @@ class AlipayMobileConnector /* extends BasicConnector */ {
     await this.ctx.model.Order.create({out_trade_no:"1569380127324",all_price:0.04,subject:"支付宝支付"},function(err,docs){});*/
 
     const orderID =
-      (await this.ctx.model.Order.find({}, null, function(err, docs) {
-        // console.log(docs);
-      }).count()) + 1;
+      (await this.ctx.model.Order.find({}, null /* function(err, docs) {
+        console.log(docs);
+      }*/).count()) + 1;
     // console.log("orderResult是"+orderResult+"orderResult.length是");
     /* if (!(orderResult && orderResult.length)) {
         return this.ctx.redirect('/order/confirm?id=' + id); // 定位到当前页面, 或返回错误信息
     }*/
     const info = await this.ctx.model.ProductInfo.find(
       { goodsCategory: orderInput.goodsCategory },
-      null,
-      function(err, docs) {
-        // console.log(docs);
-      }
+      null
     );
     console.log(info);
     // console.log("时间戳是"+timestamp);
@@ -152,7 +139,7 @@ class AlipayMobileConnector /* extends BasicConnector */ {
     console.log(result1);
     console.log('------------------------------------------------');
     // this.ctx.redirect(url); // 这里跳转到支付宝 我的收银台 进行扫码支付或登录账户支付
-    if (result1.data.code == '10000') {
+    if (result1.data.code === '10000') {
       this.ctx.model.Order.findOne(
         {
           out_trade_no: queryInput.out_trade_no,
@@ -217,17 +204,13 @@ class AlipayMobileConnector /* extends BasicConnector */ {
       option0.timestamp = timestamp;*/
     const service = new Alipay(option0);
     // 获取返回的参数
-    var result1;
+    let result1;
     // const outTradeNo = '1569380127323'
 
-    var result1;
     let result2;
     const info = await this.ctx.model.Order.findOne(
       { out_trade_no: refundInput.out_trade_no },
-      null,
-      function(err, docs) {
-        // console.log(docs);
-      }
+      null
     );
     await service
       .tradeRefund({
@@ -272,25 +255,11 @@ class AlipayMobileConnector /* extends BasicConnector */ {
         .then(result => {
           console.log('++++++++++++++++');
           console.log(result);
-          const data = {
-            code: undefined,
-            message: undefined,
-            data: {
-              code: '10000',
-              msg: 'Success',
-              out_request_no: '1569380127334',
-              out_trade_no: '1569380127334',
-              refund_amount: '0.01',
-              refund_status: 'REFUND_SUCCESS',
-              total_amount: '0.01',
-              trade_no: '2022110922001408370502362062',
-            },
-          };
           result2 = result;
           console.log('++++++++++++++++');
         });
-      if (result2.data.code == '10000') {
-        if (result2.data.refund_status == 'REFUND_SUCCESS') {
+      if (result2.data.code === '10000') {
+        if (result2.data.refund_status === 'REFUND_SUCCESS') {
           return {
             status: result2.data.refund_status,
             msg: '退款失败，因为之前已经成功退款',
@@ -362,16 +331,12 @@ class AlipayMobileConnector /* extends BasicConnector */ {
   }
 
   async alipayOrderDetail(orderDetailInput) {
-    const { ctx } = this;
     console.log('orderID=' + orderDetailInput.orderID);
     const info = await this.ctx.model.Order.findOne(
       {
         out_trade_no: orderDetailInput.orderID,
       },
-      null,
-      function(err, docs) {
-        // console.log(docs);
-      }
+      null
     );
     if (info.status === 'WAIT_BUYER_PAY') info.tradeStatus = '下单但是未付款';
     else if (info.status === 'TRADE_SUCCESS') info.tradeStatus = '已经成功付款';
@@ -381,16 +346,12 @@ class AlipayMobileConnector /* extends BasicConnector */ {
     return info;
   }
   async alipayOrderInfo(orderInfoInput) {
-    const { ctx } = this;
     const info = await this.ctx.model.Order.find(
       {
         userId: orderInfoInput.userId,
         userPhone: orderInfoInput.userPhone,
       },
-      null,
-      function(err, docs) {
-        // console.log(docs);
-      }
+      null
     );
     let i;
     for (i = 0; i < info.length; i++) {

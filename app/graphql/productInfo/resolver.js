@@ -1,7 +1,5 @@
 'use strict';
 
-const ResolverHelper = require('../common/resolverHelper');
-
 const CONNECTOR_NAME = 'productInfo';
 
 // const GeekParkSpider = require("../../spider/geekParkSpider")

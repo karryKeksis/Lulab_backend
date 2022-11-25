@@ -1,22 +1,11 @@
 'use strict';
-const DataLoader = require('dataloader');
-const BasicConnector = require('../common/basicConnector');
-
-const dialogflow = require('@google-cloud/dialogflow');
 
 // Instantiates a session client
 
 const moment = require('moment');
-const MODEL_NAME = 'ProductInfo';
 
 class ProductInfoConnector /* extends BasicConnector */ {
 
-  constructor(ctx, model) {
-    this.ctx = ctx;
-    // this.model = model;
-    ids => this.fetch(ids)
-    ;
-  }
 
   async fetch(ids) {
     /* return await this.ctx.model.User.create({
@@ -50,7 +39,7 @@ class ProductInfoConnector /* extends BasicConnector */ {
       return { status: 1, msg: '该用户不存在' };
     }
 
-    if (userInput.password == user.password) {
+    if (userInput.password === user.password) {
       return { status: 0, msg: 'success', data: user };
     }
     return { status: 1, msg: 'faile' };
@@ -81,10 +70,7 @@ class ProductInfoConnector /* extends BasicConnector */ {
                   //console.log("docs.level=" + docs.level);
         });*/
     let result = await this.ctx.model.ProductInfo.findOne(
-      { type: productInput.type }, function(err, docs) {
-        // console.log(docs);
-        // return {"status": 1, "name": "hehe"}
-      }
+      { type: productInput.type }
     );
     await Promise.all([ result ]);
     result = await result;

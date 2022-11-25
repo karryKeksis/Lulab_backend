@@ -1,7 +1,6 @@
 module.exports = app => {
   const mongoose = app.mongoose;
   const Schema = mongoose.Schema;
-  const moment = require('moment');
   const OrderSchema = new Schema({
     userId: {
       type: String,

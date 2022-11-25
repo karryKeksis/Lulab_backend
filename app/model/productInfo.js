@@ -5,7 +5,6 @@
 module.exports = app => {
   const mongoose = app.mongoose;
   const Schema = mongoose.Schema;
-  const moment = require('moment');
   const ProductInfoSchema = new Schema({
     type: {
       type: String,
