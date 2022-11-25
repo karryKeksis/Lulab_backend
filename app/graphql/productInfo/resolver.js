@@ -1,6 +1,6 @@
 'use strict';
 
-const ResolverHelper = require("../common/resolverHelper");
+const ResolverHelper = require('../common/resolverHelper');
 
 const CONNECTOR_NAME = 'productInfo';
 
@@ -8,7 +8,7 @@ const CONNECTOR_NAME = 'productInfo';
 
 module.exports = {
 
-    /*Query: {
+  /* Query: {
         async userAdmin(root, {
             id
         }, ctx) {
@@ -35,12 +35,12 @@ module.exports = {
         }
 
     },*/
-    Query: {
-        alipayInfo(root, {
-            productInput
-        }, ctx) {
-            return ctx.connector[CONNECTOR_NAME].alipayInfo(productInput);
-        },
-    }
+  Query: {
+    alipayInfo(root, {
+      productInput,
+    }, ctx) {
+      return ctx.connector[CONNECTOR_NAME].alipayInfo(productInput);
+    },
+  },
 };
 
