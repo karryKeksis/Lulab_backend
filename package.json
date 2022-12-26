@@ -39,7 +39,7 @@
         "node": ">=16.0.0"
     },
     "scripts": {
-        "start": "egg-scripts start --daemon --title=egg-server-lulab_backend",
+        "start": "egg-scripts start --title=egg-server-lulab_backend",
         "stop": "egg-scripts stop --title=egg-server-lulab_backend",
         "dev": "egg-bin dev",
         "debug": "egg-bin debug",

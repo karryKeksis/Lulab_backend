@@ -10,12 +10,6 @@ class LaunchConnector {
     );
   }
 
-  async fetch(ids) {
-    return await this.ctx.model.User.find(null, null, { limit: 4 }, function(err, docs) {
-      // console.log(docs);
-    });
-  }
-
   async fetchAll() {
     console.log(this.ctx.model.User.find({ username: 'admin' }));
     // await MyModel.find({ name: 'john', age: { $gte: 18 } }).exec();
@@ -60,7 +54,6 @@ class LaunchConnector {
       status: '200',
       msg: '验证码错误',
     };
-
   }
 
 

@@ -1,7 +1,4 @@
 'use strict';
-const DataLoader = require('dataloader');
-const BasicConnector = require('../common/basicConnector');
-const moment = require('moment');
 const fs = require('fs');
 const path = require('path');
 
@@ -9,29 +6,23 @@ const AlipaySDK = require('alipay-sdk').default;
 const AlipayFormData = require('alipay-sdk/lib/form').default;
 class AlipaysdkConnector /* extends BasicConnector */ {
 
-  constructor(ctx, model) {
-    this.ctx = ctx;
-    // this.model = model;
-    this.loader = new DataLoader(
-      ids => this.fetch(ids)
-    );
-  }
-
   async Alipaysdk(alipaysdkInput) {
     const { ctx } = this;
 
     const alipaySdk = new AlipaySDK({
-      appId: '2021000121658471', // 你自己的沙箱黄环境的appId
-      privateKey: fs.readFileSync(
+      appId: process.env.APP_ID, // 你自己的沙箱黄环境的appId
+      privateKey: process.env.PRIVATE_KEY,
+      /* fs.readFileSync(
         path.join(__dirname, '../../../config/pem/app_private_key.pem'),
         'ascii'
-      ), // 私钥
+      ), // 私钥*/
       signType: 'RSA2', // 签名类型
-      alipayPublicKey: fs.readFileSync(
+      alipayPublicKey: process.env.PUBLIC_KEY,
+      /* fs.readFileSync(
         path.join(__dirname, '../../../config/pem/alipay_public_key.pem'),
         'ascii'
-      ), // 支付宝公钥（不是应用公钥）
-      gateway: 'https://openapi.alipaydev.com/gateway.do', // 网关地址
+      ), // 支付宝公钥（不是应用公钥）*/
+      gateway: process.env.GATEWAY, // 网关地址
       timeout: 5000, // 网关超时时间
       camelcase: true, // 是否把网关返回的下划线 key 转换为驼峰写法
     });
@@ -40,7 +31,7 @@ class AlipaysdkConnector /* extends BasicConnector */ {
          */
     const formData = new AlipayFormData();
     formData.setMethod('get');
-    formData.addField('appId', '2021000121658471');
+    // formData.addField('appId', '2021000121658471');
     formData.addField('charset', 'utf-8');
     formData.addField('signType', 'RSA2');
     formData.addField('bizContent', {

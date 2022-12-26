@@ -1,8 +1,6 @@
 
 'use strict';
 
-const ResolverHelper = require('../common/resolverHelper');
-
 const CONNECTOR_NAME = 'alipaymobile';
 // const MODEL_NAME = 'User';
 

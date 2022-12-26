@@ -12,17 +12,19 @@ class AlipayController extends Controller {
   async index() {
     const { ctx } = this;
     const alipaySdk = new AlipaySDK({
-      appId: '2021000121658471', // 你自己的沙箱黄环境的appId
-      privateKey: fs.readFileSync(
+      appId: process.env.APP_ID, // 你自己的沙箱黄环境的appId
+      privateKey: process.env.PRIVATE_KEY,
+      /* fs.readFileSync(
         path.join(__dirname, '../../config/pem/app_private_key.pem'),
         'ascii'
-      ), // 私钥
+      ), // 私钥*/
       signType: 'RSA2', // 签名类型
-      alipayPublicKey: fs.readFileSync(
+      alipayPublicKey: process.env.PUBLIC_KEY,
+      /* fs.readFileSync(
         path.join(__dirname, '../../config/pem/alipay_public_key.pem'),
         'ascii'
-      ), // 支付宝公钥（不是应用公钥）
-      gateway: 'https://openapi.alipaydev.com/gateway.do', // 网关地址
+      ), // 支付宝公钥（不是应用公钥）*/
+      gateway: process.env.GATEWAY, // 网关地址
       timeout: 5000, // 网关超时时间
       camelcase: true, // 是否把网关返回的下划线 key 转换为驼峰写法
     });
@@ -31,11 +33,11 @@ class AlipayController extends Controller {
          */
     const formData = new AlipayFormData();
     formData.setMethod('post');
-    formData.addField('appId', '2021000121658471');
+    // formData.addField('appId', '2021000121658471');
     formData.addField('charset', 'utf-8');
     formData.addField('signType', 'RSA2');
     formData.addField('bizContent', {
-      outTradeNo: '1'/* 569380127338*/, // 【必选】商户订单号：64个字符内，包含数字，字母，下划线；需要保证在商户端不重复
+      outTradeNo: '1569380127338', // 【必选】商户订单号：64个字符内，包含数字，字母，下划线；需要保证在商户端不重复
       productCode: 'FAST_INSTANT_TRADE_PAY', // 【必选】销售产品码，目前仅支持FAST_INSTANT_TRADE_PAY
       totalAmount: '0.01', // 【必选】订单总金额，精确到小数点后两位
       subject: '会员', // 【必选】 订单标题
@@ -72,10 +74,8 @@ class AlipayController extends Controller {
     console.log(result); // result为可以跳转到支付连接的url
     ctx.body = result;
   }
-  async utils() {
+  /* async utils() {
     const { ctx } = this;
-    /* var option0 = ctx.app.config.pay.ali.options;
-        const utils = new Alipay(option0);*/
     const params = {
       memo: 'xxxxx',
       result: {
@@ -98,7 +98,7 @@ class AlipayController extends Controller {
     const result = utils.verifyPayment(params);
     console.log(result); // result为可以跳转到支付连接的url
     ctx.body = result;
-  }
+  }*/
 }
 
 module.exports = AlipayController;
