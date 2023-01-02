@@ -1,8 +1,13 @@
 'use strict';
 const moment = require('moment');
+/* 作者：黄志远*/
 
 const Alipay = require('alipay-mobile').default;
 class AlipayMobileConnector /* extends BasicConnector */ {
+
+  /* 下订单接口：
+    1、在数据库中存储预订单
+    2、生的签名字符串，传给前端*/
 
   async alipayOrder(orderInput) {
     const { ctx } = this;
@@ -15,7 +20,7 @@ class AlipayMobileConnector /* extends BasicConnector */ {
     const orderID =
       (await this.ctx.model.Order.find({}, null /* function(err, docs) {
         console.log(docs);
-      }*/).count()) + 1;
+      }*/).count()) + 1;// 生成订单号
     // console.log("orderResult是"+orderResult+"orderResult.length是");
     /* if (!(orderResult && orderResult.length)) {
         return this.ctx.redirect('/order/confirm?id=' + id); // 定位到当前页面, 或返回错误信息
@@ -23,7 +28,7 @@ class AlipayMobileConnector /* extends BasicConnector */ {
     const info = await this.ctx.model.ProductInfo.find(
       { goodsCategory: orderInput.goodsCategory },
       null
-    );
+    );// 查找产品数据信息，目前只有课程会员
     console.log(info);
     // console.log("时间戳是"+timestamp);
     const data = {
@@ -31,17 +36,17 @@ class AlipayMobileConnector /* extends BasicConnector */ {
       body: info[0].goodsBody,
       out_trade_no: orderID + '', // 必须是string类型
       total_amount: info[0].goodsPrice,
-    };
+    };// 这里面有一部分是签名字符串中所需要的特殊的字段（total_amount总金额，其他的有点忘了)，一定要有
 
     /* let createUrl = new Promise(function(resolve, reject){
       //实例化 alipay*/
-    const option0 = ctx.app.config.pay.ali.options;
-    const timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
+    const option0 = ctx.app.config.pay.ali.options;// 支付宝密钥等
+    const timestamp = moment().format('YYYY-MM-DD HH:mm:ss');// 时间戳
     console.log('payTime=' + timestamp);
     option0.timestamp = timestamp;
     const service = new Alipay(option0);
     // 获取返回的参数
-    const result = service.createOrder(data);
+    const result = service.createOrder(data);// 用支付宝的接口生成签名字符串及相关信息
     // resolve(result.data);
     // });
     /* createUrl.then(
@@ -61,13 +66,14 @@ class AlipayMobileConnector /* extends BasicConnector */ {
       body: info[0].goodsBody,
       orderInfo: result.data + '',
       trade_no: result.trade_no,
-    });
+    });// 存储预订单相关信息到数据库
     console.log('------------------------------------------------');
     console.log(result1);
     console.log('------------------------------------------------');
     // this.ctx.redirect(url); // 这里跳转到支付宝 我的收银台 进行扫码支付或登录账户支付
-    return { orderInfo: result.data + '' };
+    return { orderInfo: result.data + '' };// 返回签名字符串
   }
+  /* 订单异步查询*/
   async alipayCallback(queryInput) {
     const { ctx } = this;
     // let id = this.ctx.request.query.id;
@@ -112,7 +118,7 @@ class AlipayMobileConnector /* extends BasicConnector */ {
         console.log(result);
         result1 = result;
         // assert(result.data.code == '40004', result.message)
-      });
+      });// 支付宝订单查询
     // resolve(result.data);
     // });
     /* createUrl.then(
@@ -140,7 +146,7 @@ class AlipayMobileConnector /* extends BasicConnector */ {
     console.log('------------------------------------------------');
     // this.ctx.redirect(url); // 这里跳转到支付宝 我的收银台 进行扫码支付或登录账户支付
     if (result1.data.code === '10000') {
-      this.ctx.model.Order.findOne(
+      this.ctx.model.Order.findOne(// 找到原订单
         {
           out_trade_no: queryInput.out_trade_no,
         },
@@ -148,14 +154,14 @@ class AlipayMobileConnector /* extends BasicConnector */ {
           console.log('docs是');
           console.log(docs);
           if (!err) {
-            await ctx.model.Order.update(
+            await ctx.model.Order.update(// 更新订单撞款
               {
                 out_trade_no: queryInput.out_trade_no,
               },
               { $set: { status: result1.data.trade_status } }
             );
             if (docs.trade_no === '') {
-              await ctx.model.Order.update(
+              await ctx.model.Order.update(// 更新trade_no
                 {
                   out_trade_no: queryInput.out_trade_no,
                 },
@@ -168,6 +174,7 @@ class AlipayMobileConnector /* extends BasicConnector */ {
       return { status: result1.data.trade_status, msg: result1.data.msg };
     } return { status: result1.data.sub_msg, msg: result1.data.msg };
   }
+  /* 退款接口*/
   async alipayRefund(refundInput) {
     const { ctx } = this;
     // let id = this.ctx.request.query.id;
@@ -227,9 +234,9 @@ class AlipayMobileConnector /* extends BasicConnector */ {
         console.log(result);
         result1 = result;
         console.log('****************');
-      });
+      });// 支付宝退款接口
     if (result1.data.fund_change === 'Y') {
-      await ctx.model.Order.update(
+      await ctx.model.Order.update(// 退款成功，修改订单状态
         {
           out_trade_no: refundInput.out_trade_no,
         },
@@ -248,7 +255,7 @@ class AlipayMobileConnector /* extends BasicConnector */ {
       result1.fund_change === undefined
     ) {
       await service
-        .tradeRefundQuery({
+        .tradeRefundQuery({ // 退款失败或者未接收到数据，查询退款订单信息
           out_request_no: refundInput.out_trade_no,
           out_trade_no: refundInput.out_trade_no,
         })
@@ -329,7 +336,7 @@ class AlipayMobileConnector /* extends BasicConnector */ {
     else
       return {"status":result1.data.sub_msg,"msg":result1.data.msg};*/
   }
-
+  /* 给前端返回单个订单细节*/
   async alipayOrderDetail(orderDetailInput) {
     console.log('orderID=' + orderDetailInput.orderID);
     const info = await this.ctx.model.Order.findOne(
@@ -345,6 +352,7 @@ class AlipayMobileConnector /* extends BasicConnector */ {
     delete info.orderInfo;
     return info;
   }
+  /* 给前台返回某个用户所有订单细节*/
   async alipayOrderInfo(orderInfoInput) {
     const info = await this.ctx.model.Order.find(
       {
