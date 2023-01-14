@@ -32,3 +32,8 @@ exports.jwt = {
   enable: true,
   package: 'egg-jwt',
 };
+
+exports.static = {
+  enable: true,
+  package: 'egg-static',
+}

@@ -1,9 +1,0 @@
-type Access {
-	_id: ID
-	action_name: String
-	type: Number
-    description: String
-    sort: Number
-	addTime   : Date!
-
-}

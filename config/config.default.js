@@ -1,5 +1,5 @@
 'use strict'
-
+const path = require("path");
 module.exports = appInfo => {
   const config = {
 
@@ -16,18 +16,30 @@ module.exports = appInfo => {
       port: 10086
     },
     middleware: ['graphql']
-    
+
   }
 
+  config.graphql = {
+    router: '/graphql',
+    // 是否加载到 app 上，默认开启
+    app: true,
+    // 是否加载到 agent 上，默认关闭
+    agent: false,
+  };
+
   config.jwtOpts = {
-    secretKey: process.env.JWT_SECRET_KEY,
-    expireTime: 7 * 24 * 60 * 60,
-  },
+      secretKey: process.env.JWT_SECRET_KEY,
+      expireTime: 7 * 24 * 60 * 60,
+    },
 
-  // use for cookie sign key, should change to your own and keep security
-  config.keys = appInfo.name + '_1546846389359_709'
+    // use for cookie sign key, should change to your own and keep security
+    config.keys = appInfo.name + '_1546846389359_709'
 
-
+  // 七牛云配置
+  config.qiniu = {
+    AccessKey: process.env.QINIU_ACCESS_KEY, // 七牛云Access_Key
+    SecretKey: process.env.QINIU_SECRET_KEY, // 七牛云SecretKey
+  };
   /*config.redis = {
     client: {
       port: 6379,          // Redis port
@@ -42,7 +54,7 @@ module.exports = appInfo => {
   config.mongoose = {
     //本地环境
     client: {
-      url: 'mongodb://127.0.0.1:27017/test',
+      url: 'mongodb://127.0.0.1:27017/ttt',
       options: {
         useNewUrlParser: true,
         useUnifiedTopology: true
@@ -65,7 +77,12 @@ module.exports = appInfo => {
     expireTime: 7200, // jwt、redis过期时间(s)
     updateExpireTime: 1800, // jwt、redis如果用户一直在操作，距离给redis的key续费的时间(s) //30分钟,
     redisKeySecret: '', // redis中key加密处理
-  }; 
+  };
+
+  config.static = {
+    prefix: '/public/',
+    dir: [path.join(appInfo.baseDir, 'app/public')]
+  }
 
   return config
 }

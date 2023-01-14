@@ -40,14 +40,8 @@ type Query {
 
   #training
   latestTraining(option :Option!): [Training]
-  
-  #role
-  latestRole(option :Option!): [Role]
-  latestUserRole(option :Option!): [UserRole]
-   #access
-  latestAccess(option :Option!): [Access]
-  latestRoleAccess(option :Option!): [RoleAccess]
 
+  qiniu: Qiniu!
   #orderrecord
   latestRecord(authorId: String!,option :Option!): [OrderRecord]
   latestUserCourseRecord(authorId: String!, courseId: String!): result
@@ -57,5 +51,9 @@ type Query {
 
   #courseclassification
   queryCourseClassification(option :Option!): [CourseClassification]
+  
+  #权限demo
+  voice: res
+  movice: res
 
 }

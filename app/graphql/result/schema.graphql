@@ -1,0 +1,5 @@
+type Result {
+    code: String
+    msg: String
+}
+ 

@@ -1,7 +1,0 @@
-type Role {
-	_id: ID
-	title: String
-	description: String
-	addTime   : Date!
-
-}

@@ -82,4 +82,7 @@ input Condition {
   type: String
 }
 
-
+type res {
+  code: String
+  msg: String
+}
