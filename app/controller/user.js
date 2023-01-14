@@ -4,18 +4,13 @@ const Controller = require('egg').Controller;
 
 
 class UserController extends Controller {
-<<<<<<< HEAD
+
   // 初始化
-  async init() {
-=======
-  // 注册
-  async register() {
->>>>>>> d0aa9ef303fa9707a4f760212e94acf03781ef0d
+  async init() { 
     const {
       ctx,
       app
     } = this;
-<<<<<<< HEAD
     const data = ctx.request.body;
     console.log("models = ", ctx.model.User)
 
@@ -62,21 +57,6 @@ class UserController extends Controller {
     } = this;
     ctx.body = '听声音';
   }
-
-=======
-    const {
-      name,
-      password,
-    } = ctx.request.body;
-
-    const res = await ctx.model.User.insertMany([{
-      name,
-      password,
-    }]);
-    // console.log("res1111 = ", res)
-    ctx.body = 'ok';
-  }
->>>>>>> d0aa9ef303fa9707a4f760212e94acf03781ef0d
   // 登录
   async login() {
     const {
@@ -86,7 +66,7 @@ class UserController extends Controller {
     const data = ctx.request.body;
     console.log("data = ", data)
     const res = await ctx.model.User.findOne({
-<<<<<<< HEAD
+
       username: data.username,
       password: data.password
     }).populate({
@@ -102,18 +82,7 @@ class UserController extends Controller {
       token,
       res
     };
-=======
-      name: data.name,
-      password: data.password
-    });
-    console.log("res = ", res)
-    const token = app.jwt.sign({
-      name: data.name,
-      role: res.role
-    }, app.config.jwt.secret);
-    // 登录成功
-    ctx.body = token;
->>>>>>> d0aa9ef303fa9707a4f760212e94acf03781ef0d
+
   }
   // 验证token，请求时在header配置 Authorization=`Bearer ${token}`
   // 特别注意：token不能直接发送，要在前面加上Bearer字符串和一个空格
@@ -127,30 +96,7 @@ class UserController extends Controller {
       msg: '验证成功'
     };
   }
-<<<<<<< HEAD
-=======
 
-
-  async a() {
-    const {
-      ctx
-    } = this;
-    ctx.body = {
-      code: 200,
-      msg: 'a验证成功'
-    };
-  }
-
-  async b() {
-    const {
-      ctx
-    } = this;
-    ctx.body = {
-      code: 200,
-      msg: 'b验证成功'
-    };
-  }
->>>>>>> d0aa9ef303fa9707a4f760212e94acf03781ef0d
 }
 
 module.exports = UserController;

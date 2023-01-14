@@ -54,21 +54,6 @@ input UserInput {
       location:[String]
 }
 
-<<<<<<< HEAD
-=======
-
-input CommentInput {
-  _id: String
-  content: String
-  entityId: String
-  category: String
-  authorName: String
-  authorId: String
-  authorImg: String
-}
-
->>>>>>> origin
-
 input OrderRecordInput {
   courseId: String
   authorId: String
