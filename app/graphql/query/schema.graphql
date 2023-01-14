@@ -43,6 +43,15 @@ type Query {
 
   #training
   latestTraining(option :Option!): [Training]
+<<<<<<< HEAD
+=======
+  
+  #role
+  latestRole(option :Option!): [Role]
+
+   #access
+  latestAccess(option :Option!): [Access]
+>>>>>>> d0aa9ef303fa9707a4f760212e94acf03781ef0d
 
   qiniu: Qiniu!
   #orderrecord
