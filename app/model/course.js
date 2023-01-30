@@ -1,7 +1,12 @@
-module.exports = app => {
-  const mongoose = app.mongoose;
-  const Schema = mongoose.Schema;
+/**
+ * 大课
+ */
 
+module.exports = app => {
+    const mongoose = app.mongoose;
+    const Schema = mongoose.Schema;
+
+<<<<<<< HEAD
   const CourseSchema = new Schema({
     title: { type: String },
     classTags: { type: String },
@@ -17,9 +22,27 @@ module.exports = app => {
   }, {
     timestamps: true,
   });
+=======
+    const CourseSchema = new Schema({
+        title: { type: String },
+        classTags: { type: String },
+        imageUrl: { type: String, default: "http://qn3.proflu.cn/default.jpg" },
+        author: { type: String },
+        authorTags: { type: String },
+        description: { type: String },
+        onlineTime: { type: String },
+        addTime: { type: String },
+        updateTime: { type: String },
+        sort: { type: Number },
+        category_id: { type: Schema.Types.ObjectId },
+    }, {
+        timestamps: true,
+    });
+>>>>>>> b8101ac6c72b76a045c94d1be186d91764542866
 
-  const Course = mongoose.model('Course', CourseSchema, 'course');
+    const Course = mongoose.model('Course', CourseSchema, 'course');
 
+<<<<<<< HEAD
   // initUserData(Course);
   return Course;
 };
@@ -47,4 +70,33 @@ function initUserData(User) {
       console.log('-------------创建主课成功--------------');
     }
   });
+=======
+    initUserData(Course);
+    return Course;
+};
+
+function initUserData(User) {
+    // 查询数据库
+    User.find({}, (err, doc) => {
+        if (err) {
+            console.log(err);
+            console.log('创建用户失败');
+        } else if (!doc.length) {
+            new User({
+                title: '理论课程',
+                classTags: '',
+                author: '陆向谦',
+                authorTags: '',
+                description: '',
+                onlineTime: '',
+                addTime: Date(),
+                updateTime: Date(),
+                sort: 1,
+                category_id: '63c4d7e691dc5226f0a9fe83',
+            }).save();
+        } else {
+            console.log('-------------创建主课成功--------------');
+        }
+    });
+>>>>>>> b8101ac6c72b76a045c94d1be186d91764542866
 }

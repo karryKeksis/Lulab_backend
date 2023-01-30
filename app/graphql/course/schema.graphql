@@ -3,7 +3,6 @@ type Category {
   title: String,
 }
 
-
 type Course {
   _id: String,
   title: String,
@@ -26,8 +25,14 @@ type CourseDetail {
 
 type Link {
   link: String,
+  state: String,
 }
 
-
+type Catalogue{
+  _id: String
+  title: String
+  duration: String
+  free: Boolean
+}
 
 
