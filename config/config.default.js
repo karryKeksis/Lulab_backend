@@ -40,16 +40,16 @@ module.exports = appInfo => {
   };
 
 
-  config.mongoose = {
+  /* config.mongoose = {
     url: process.env.MONGOOSE_URL, // 端口号27021数据库名VietNamVisa
     options: { useNewUrlParser: true, useUnifiedTopology: true }, // 其他配置警告解除方法
-  };
+  };*/
 
 
   config.redis = {
     client: {
       port: 6379, // Redis port
-      host: '127.0.0.1'/* '192.168.101.3'*/, // Redis host
+      host: process.env.REDIS_HOST, // Redis host
       password: '',
       db: 0,
     },
@@ -105,7 +105,7 @@ module.exports = appInfo => {
   config.mongoose = {
     // 本地环境
     client: {
-      url: 'mongodb://127.0.0.1:27017/test',
+      url: process.env.MONGOOSE_URL,
       options: {
         useNewUrlParser: true,
         useUnifiedTopology: true,
@@ -143,6 +143,13 @@ module.exports = appInfo => {
     // .... 当然这里还可以有其他支付，如微信等
   };
 
+  config.cluster = {
+    listen: {
+      path: '',
+      port: 7001, // 5555
+      hostname: '127.0.0.1', // 0.0.0.0
+    },
+  };
 
   // 七牛云配置
   config.qiniu = {

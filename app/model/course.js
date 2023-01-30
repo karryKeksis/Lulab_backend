@@ -4,11 +4,15 @@ module.exports = app => {
 
   const CourseSchema = new Schema({
     title: { type: String },
-    mode: { type: Number },
-    sort: { type: Number },
+    classTags: { type: String },
+    imageUrl: { type: String, default: 'http://qn3.proflu.cn/default.jpg' },
     author: { type: String },
+    authorTags: { type: String },
     description: { type: String },
-    status: { type: Number, default: 1 },
+    onlineTime: { type: String },
+    addTime: { type: String },
+    updateTime: { type: String },
+    sort: { type: Number },
     category_id: { type: Schema.Types.ObjectId },
   }, {
     timestamps: true,
@@ -16,7 +20,7 @@ module.exports = app => {
 
   const Course = mongoose.model('Course', CourseSchema, 'course');
 
-  initUserData(Course);
+  // initUserData(Course);
   return Course;
 };
 
@@ -28,13 +32,16 @@ function initUserData(User) {
       console.log('创建用户失败');
     } else if (!doc.length) {
       new User({
-        title: '测试课程',
-        mode: 1,
-        sort: 1,
+        title: '理论课程',
+        classTags: '',
         author: '陆向谦',
-        description: '课程描述',
+        authorTags: '',
+        description: '',
+        onlineTime: '',
+        addTime: Date.now(),
+        updateTime: Date.now(),
+        sort: 1,
         category_id: '6362d1e02bbfd16b331657ca',
-        createdAt: Date.now(),
       }).save();
     } else {
       console.log('-------------创建主课成功--------------');

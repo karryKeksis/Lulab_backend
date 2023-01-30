@@ -23,7 +23,7 @@ class AlipayController extends Controller {
       /* fs.readFileSync(
         path.join(__dirname, '../../config/pem/alipay_public_key.pem'),
         'ascii'
-      ), // 支付宝公钥（不是应用公钥）*/
+      ),// 支付宝公钥（不是应用公钥） */
       gateway: process.env.GATEWAY, // 网关地址
       timeout: 5000, // 网关超时时间
       camelcase: true, // 是否把网关返回的下划线 key 转换为驼峰写法
@@ -74,7 +74,7 @@ class AlipayController extends Controller {
     console.log(result); // result为可以跳转到支付连接的url
     ctx.body = result;
   }
-  /* async utils() {
+  async utils() {
     const { ctx } = this;
     const params = {
       memo: 'xxxxx',
@@ -98,7 +98,7 @@ class AlipayController extends Controller {
     const result = utils.verifyPayment(params);
     console.log(result); // result为可以跳转到支付连接的url
     ctx.body = result;
-  }*/
+  }
 }
 
 module.exports = AlipayController;

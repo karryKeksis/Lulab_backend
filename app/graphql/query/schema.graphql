@@ -12,7 +12,7 @@ type Query {
 
   courseCategory: [Category!]
   course(category_id: String!, page: Int!, limit: Int!): [Course!]
-  courseDetail(course_id: String!, skip: Int!, limit: Int!): [CourseDetail!]
+  courseDetail(course_id: String!): [CourseDetail!]
   #课程请求
   courseLink(detail_id: String!): Link!
 

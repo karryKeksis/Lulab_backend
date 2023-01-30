@@ -6,7 +6,6 @@ type Category {
 
 type Course {
   _id: String,
-  createdAt: String,
   title: String,
   author: String,
   description: String,
@@ -15,6 +14,14 @@ type Course {
 type CourseDetail {
   _id: String,
   title: String,
+  classTags: String,
+  imageUrl: String,
+  author: String,
+  authorTags: String,
+  description: String,
+  onlineTime: String,
+  addTime: String,
+  updateTime: String,
 }
 
 type Link {

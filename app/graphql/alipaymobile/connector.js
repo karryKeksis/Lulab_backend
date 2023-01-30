@@ -1,30 +1,47 @@
 'use strict';
 const moment = require('moment');
+
+const DataLoader = require('dataloader');
 /* 作者：黄志远*/
 
 const Alipay = require('alipay-mobile').default;
 class AlipayMobileConnector /* extends BasicConnector */ {
 
+  constructor(ctx) {
+    this.ctx = ctx;
+    this.loader = new DataLoader(ids => this.fetch(ids));
+  }
+
+  async fetch(ids) {
+    return await this.ctx.model.User.find(
+      null,
+      null,
+      { limit: 4 },
+      function(err, docs) {
+        // console.log(docs);
+      }
+    );
+  }
   /* 下订单接口：
-    1、在数据库中存储预订单
-    2、生的签名字符串，传给前端*/
+        1、在数据库中存储预订单
+        2、生的签名字符串，传给前端*/
 
   async alipayOrder(orderInput) {
     const { ctx } = this;
     // let id = this.ctx.request.query.id;
     // console.log('id是'+id);
     /* await this.ctx.model.Order.create({out_trade_no:"1569380127322",all_price:0.02,subject:"支付宝支付"},function(err,docs){});
-    await this.ctx.model.Order.create({out_trade_no:"1569380127323",all_price:0.03},function(err,docs){});
-    await this.ctx.model.Order.create({out_trade_no:"1569380127324",all_price:0.04,subject:"支付宝支付"},function(err,docs){});*/
-
+            await this.ctx.model.Order.create({out_trade_no:"1569380127323",all_price:0.03},function(err,docs){});
+            await this.ctx.model.Order.create({out_trade_no:"1569380127324",all_price:0.04,subject:"支付宝支付"},function(err,docs){});*/
     const orderID =
-      (await this.ctx.model.Order.find({}, null /* function(err, docs) {
+            (await this.ctx.model.Order.find({}, null /* function(err, docs) {
         console.log(docs);
       }*/).count()) + 1;// 生成订单号
+
     // console.log("orderResult是"+orderResult+"orderResult.length是");
     /* if (!(orderResult && orderResult.length)) {
-        return this.ctx.redirect('/order/confirm?id=' + id); // 定位到当前页面, 或返回错误信息
-    }*/
+                return this.ctx.redirect('/order/confirm?id=' + id); // 定位到当前页面, 或返回错误信息
+            }*/
     const info = await this.ctx.model.ProductInfo.find(
       { goodsCategory: orderInput.goodsCategory },
       null
@@ -39,7 +56,7 @@ class AlipayMobileConnector /* extends BasicConnector */ {
     };// 这里面有一部分是签名字符串中所需要的特殊的字段（total_amount总金额，其他的有点忘了)，一定要有
 
     /* let createUrl = new Promise(function(resolve, reject){
-      //实例化 alipay*/
+              //实例化 alipay*/
     const option0 = ctx.app.config.pay.ali.options;// 支付宝密钥等
     const timestamp = moment().format('YYYY-MM-DD HH:mm:ss');// 时间戳
     console.log('payTime=' + timestamp);
@@ -50,10 +67,10 @@ class AlipayMobileConnector /* extends BasicConnector */ {
     // resolve(result.data);
     // });
     /* createUrl.then(
-        function(value){
-            console.log("result.data是"+value);
-        }
-    );*/
+                function(value){
+                    console.log("result.data是"+value);
+                }
+            );*/
     const result1 = await this.ctx.model.Order.create({
       userId: orderInput.userId,
       userPhone: orderInput.userPhone,
@@ -79,35 +96,35 @@ class AlipayMobileConnector /* extends BasicConnector */ {
     // let id = this.ctx.request.query.id;
     // console.log('id是'+id);
     /* await this.ctx.model.Order.create({out_trade_no:"1569380127322",all_price:0.02,subject:"支付宝支付"},function(err,docs){});
-    await this.ctx.model.Order.create({out_trade_no:"1569380127323",all_price:0.03},function(err,docs){});
-    await this.ctx.model.Order.create({out_trade_no:"1569380127324",all_price:0.04,subject:"支付宝支付"},function(err,docs){});*/
+            await this.ctx.model.Order.create({out_trade_no:"1569380127323",all_price:0.03},function(err,docs){});
+            await this.ctx.model.Order.create({out_trade_no:"1569380127324",all_price:0.04,subject:"支付宝支付"},function(err,docs){});*/
 
     /* var orderID = await this.ctx.model.Order.find(
-        {},null, function (err, docs) {
-        //console.log(docs);
-    }).count()+1;*、
-    //console.log("orderResult是"+orderResult+"orderResult.length是");
-    /*if (!(orderResult && orderResult.length)) {
-        return this.ctx.redirect('/order/confirm?id=' + id); // 定位到当前页面, 或返回错误信息
-    }*/
+                {},null, function (err, docs) {
+                //console.log(docs);
+            }).count()+1;*、
+            //console.log("orderResult是"+orderResult+"orderResult.length是");
+            /*if (!(orderResult && orderResult.length)) {
+                return this.ctx.redirect('/order/confirm?id=' + id); // 定位到当前页面, 或返回错误信息
+            }*/
     /* var info = await this.ctx.model.ProductInfo.find(
-      {goodsCategory:orderInput.goodsCategory},null, function (err, docs) {
-      //console.log(docs);
-    });
-    console.log(info);
-    //console.log("时间戳是"+timestamp);
-    var data = {
-        subject: info[0].goodsName, // 这里显示什么，同微信支付，看需求
-        body:info[0].goodsBody,
-        out_trade_no: (orderID+''), // 必须是string类型
-        total_amount: info[0].goodsPrice,
-    }*/
+              {goodsCategory:orderInput.goodsCategory},null, function (err, docs) {
+              //console.log(docs);
+            });
+            console.log(info);
+            //console.log("时间戳是"+timestamp);
+            var data = {
+                subject: info[0].goodsName, // 这里显示什么，同微信支付，看需求
+                body:info[0].goodsBody,
+                out_trade_no: (orderID+''), // 必须是string类型
+                total_amount: info[0].goodsPrice,
+            }*/
 
     /* let createUrl = new Promise(function(resolve, reject){
-      //实例化 alipay*/
+              //实例化 alipay*/
     const option0 = ctx.app.config.pay.ali.options;
     /* var timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
-      option0.timestamp = timestamp;*/
+              option0.timestamp = timestamp;*/
     const service = new Alipay(option0);
     // 获取返回的参数
     let result1;
@@ -122,23 +139,23 @@ class AlipayMobileConnector /* extends BasicConnector */ {
     // resolve(result.data);
     // });
     /* createUrl.then(
-        function(value){
-            console.log("result.data是"+value);
-        }
-    );*/
+                function(value){
+                    console.log("result.data是"+value);
+                }
+            );*/
 
     /* var result1 = await this.ctx.model.Order.create({
-      userId:orderInput.userId,
-      userPhone:orderInput.userPhone,
-      goodsCategory:orderInput.goodsCategory,
-      paymentWay:orderInput.paymentWay,
-      timestamp: option0.timestamp,
-      out_trade_no: (orderID+''),
-      total_amount:info[0].goodsPrice,
-      subject: info[0].goodsName, // 这里显示什么，同微信支付，看需求
-      body:info[0].goodsBody,
-      orderInfo:(result.data+'')
-    });*/
+              userId:orderInput.userId,
+              userPhone:orderInput.userPhone,
+              goodsCategory:orderInput.goodsCategory,
+              paymentWay:orderInput.paymentWay,
+              timestamp: option0.timestamp,
+              out_trade_no: (orderID+''),
+              total_amount:info[0].goodsPrice,
+              subject: info[0].goodsName, // 这里显示什么，同微信支付，看需求
+              body:info[0].goodsBody,
+              orderInfo:(result.data+'')
+            });*/
 
     console.log('------------------------------------------------');
     console.log('result1是');
@@ -180,35 +197,35 @@ class AlipayMobileConnector /* extends BasicConnector */ {
     // let id = this.ctx.request.query.id;
     // console.log('id是'+id);
     /* await this.ctx.model.Order.create({out_trade_no:"1569380127322",all_price:0.02,subject:"支付宝支付"},function(err,docs){});
-    await this.ctx.model.Order.create({out_trade_no:"1569380127323",all_price:0.03},function(err,docs){});
-    await this.ctx.model.Order.create({out_trade_no:"1569380127324",all_price:0.04,subject:"支付宝支付"},function(err,docs){});*/
+            await this.ctx.model.Order.create({out_trade_no:"1569380127323",all_price:0.03},function(err,docs){});
+            await this.ctx.model.Order.create({out_trade_no:"1569380127324",all_price:0.04,subject:"支付宝支付"},function(err,docs){});*/
 
     /* var orderID = await this.ctx.model.Order.find(
-        {},null, function (err, docs) {
-        //console.log(docs);
-    }).count()+1;*、
-    //console.log("orderResult是"+orderResult+"orderResult.length是");
-    /*if (!(orderResult && orderResult.length)) {
-        return this.ctx.redirect('/order/confirm?id=' + id); // 定位到当前页面, 或返回错误信息
-    }*/
+                {},null, function (err, docs) {
+                //console.log(docs);
+            }).count()+1;*、
+            //console.log("orderResult是"+orderResult+"orderResult.length是");
+            /*if (!(orderResult && orderResult.length)) {
+                return this.ctx.redirect('/order/confirm?id=' + id); // 定位到当前页面, 或返回错误信息
+            }*/
     /* var info = await this.ctx.model.ProductInfo.find(
-      {goodsCategory:orderInput.goodsCategory},null, function (err, docs) {
-      //console.log(docs);
-    });
-    console.log(info);
-    //console.log("时间戳是"+timestamp);
-    var data = {
-        subject: info[0].goodsName, // 这里显示什么，同微信支付，看需求
-        body:info[0].goodsBody,
-        out_trade_no: (orderID+''), // 必须是string类型
-        total_amount: info[0].goodsPrice,
-    }*/
+              {goodsCategory:orderInput.goodsCategory},null, function (err, docs) {
+              //console.log(docs);
+            });
+            console.log(info);
+            //console.log("时间戳是"+timestamp);
+            var data = {
+                subject: info[0].goodsName, // 这里显示什么，同微信支付，看需求
+                body:info[0].goodsBody,
+                out_trade_no: (orderID+''), // 必须是string类型
+                total_amount: info[0].goodsPrice,
+            }*/
 
     /* let createUrl = new Promise(function(resolve, reject){
-      //实例化 alipay*/
+              //实例化 alipay*/
     const option0 = ctx.app.config.pay.ali.options;
     /* var timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
-      option0.timestamp = timestamp;*/
+              option0.timestamp = timestamp;*/
     const service = new Alipay(option0);
     // 获取返回的参数
     let result1;
@@ -224,10 +241,10 @@ class AlipayMobileConnector /* extends BasicConnector */ {
         out_trade_no: refundInput.out_trade_no,
         refund_amount: info.total_amount,
         refund_reason:
-          '原因:' +
-          refundInput.reason +
-          '\n详细描述:' +
-          refundInput.description,
+                    '原因:' +
+                    refundInput.reason +
+                    '\n详细描述:' +
+                    refundInput.description,
       })
       .then(result => {
         console.log('****************');
@@ -252,7 +269,7 @@ class AlipayMobileConnector /* extends BasicConnector */ {
       return { status: '已退款', msg: '退款成功' };
     } else if (
       result1.fund_change === 'N' ||
-      result1.fund_change === undefined
+            result1.fund_change === undefined
     ) {
       await service
         .tradeRefundQuery({ // 退款失败或者未接收到数据，查询退款订单信息
@@ -276,6 +293,12 @@ class AlipayMobileConnector /* extends BasicConnector */ {
           status: result2.data.refund_status,
           msg: '退款失败，但是成功到查询到了失败原因',
         };
+      } else if (result2.data.code === '40004') {
+        return {
+          status: result2.data.sub_code,
+          msg: '无法退款，因为该交易不存在，请重新核对交易号',
+
+        };
       }
       return {
         status: result2.data.refund_status,
@@ -285,56 +308,56 @@ class AlipayMobileConnector /* extends BasicConnector */ {
     return { status: '-1', msg: '订单序列号发生错误' };
 
     /* var data = {
-        code: undefined,
-        message: undefined,
-        data: {
-          code: '10000',
-          msg: 'Success',
-          buyer_logon_id: 'tcd***@sandbox.com',
-          buyer_user_id: '2088622987608378',
-          fund_change: 'Y',
-          gmt_refund_pay: '2022-11-08 12:17:45',
-          out_trade_no: '1569380127331',
-          refund_fee: '0.04',
-          send_back_fee: '0.00',
-          trade_no: '2022110822001408370502361039'
-        }
-      }
-      if(data.data.x === undefined)
-        console.log("x undefined");
-      else
-        console.log("not correct");
-      console.log(data.data.fund_change);
-      console.log("===================================================");*/
+                code: undefined,
+                message: undefined,
+                data: {
+                  code: '10000',
+                  msg: 'Success',
+                  buyer_logon_id: 'tcd***@sandbox.com',
+                  buyer_user_id: '2088622987608378',
+                  fund_change: 'Y',
+                  gmt_refund_pay: '2022-11-08 12:17:45',
+                  out_trade_no: '1569380127331',
+                  refund_fee: '0.04',
+                  send_back_fee: '0.00',
+                  trade_no: '2022110822001408370502361039'
+                }
+              }
+              if(data.data.x === undefined)
+                console.log("x undefined");
+              else
+                console.log("not correct");
+              console.log(data.data.fund_change);
+              console.log("===================================================");*/
     // resolve(result.data);
     // });
     /* createUrl.then(
-        function(value){
-            console.log("result.data是"+value);
-        }
-    );*/
+                function(value){
+                    console.log("result.data是"+value);
+                }
+            );*/
 
     /* var result1 = await this.ctx.model.Order.create({
-      userId:orderInput.userId,
-      userPhone:orderInput.userPhone,
-      goodsCategory:orderInput.goodsCategory,
-      paymentWay:orderInput.paymentWay,
-      timestamp: option0.timestamp,
-      out_trade_no: (orderID+''),
-      total_amount:info[0].goodsPrice,
-      subject: info[0].goodsName, // 这里显示什么，同微信支付，看需求
-      body:info[0].goodsBody,
-      orderInfo:(result.data+'')
-    });*/
+              userId:orderInput.userId,
+              userPhone:orderInput.userPhone,
+              goodsCategory:orderInput.goodsCategory,
+              paymentWay:orderInput.paymentWay,
+              timestamp: option0.timestamp,
+              out_trade_no: (orderID+''),
+              total_amount:info[0].goodsPrice,
+              subject: info[0].goodsName, // 这里显示什么，同微信支付，看需求
+              body:info[0].goodsBody,
+              orderInfo:(result.data+'')
+            });*/
     /* console.log("------------------------------------------------");
-    console.log("result1是");
-    console.log(result1);
-    console.log("------------------------------------------------");*/
+            console.log("result1是");
+            console.log(result1);
+            console.log("------------------------------------------------");*/
     // this.ctx.redirect(url); // 这里跳转到支付宝 我的收银台 进行扫码支付或登录账户支付
     /* if(result1.data.code == "10000")
-      return {"status":result1.data.trade_status,"msg":result1.data.msg};
-    else
-      return {"status":result1.data.sub_msg,"msg":result1.data.msg};*/
+              return {"status":result1.data.trade_status,"msg":result1.data.msg};
+            else
+              return {"status":result1.data.sub_msg,"msg":result1.data.msg};*/
   }
   /* 给前端返回单个订单细节*/
   async alipayOrderDetail(orderDetailInput) {
